@@ -35,6 +35,7 @@ gem 'bootstrap-email'
 gem "mini_magick"
 gem 'ajax-datatables-rails'
 gem "haml-rails", "~> 2.0"
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
