@@ -84,6 +84,7 @@ GEM
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
     childprocess (3.0.0)
+    coderay (1.1.3)
     coffee-rails (5.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 5.2.0)
@@ -158,6 +159,9 @@ GEM
     premailer-rails (1.11.1)
       actionmailer (>= 3)
       premailer (~> 1.7, >= 1.7.9)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
@@ -276,10 +280,12 @@ DEPENDENCIES
   coffee-rails
   devise
   haml-rails (~> 2.0)
+  html2haml
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.2)
   mini_magick
+  pry
   puma (~> 4.1)
   rails (~> 6.0.3)
   sass-rails (>= 6)

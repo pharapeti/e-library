@@ -36,6 +36,7 @@ gem "mini_magick"
 gem 'ajax-datatables-rails'
 gem "haml-rails", "~> 2.0"
 gem 'devise'
+gem 'html2haml'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,6 +51,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
+  gem 'pry'
 end
 
 group :test do

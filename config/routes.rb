@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+
+  namespace :students do
+    get :dashboard, to: 'dashboard#show'
+  end
+
+  namespace :staff do
+    get :dashboard, to: 'dashboard#show'
+  end
+
+  root to: 'static#index'
 end
