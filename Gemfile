@@ -31,7 +31,6 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'simple_form'
 gem 'coffee-rails'
 gem "bootstrap_form", "~> 4.0"
-gem 'bootstrap-email'
 gem "mini_magick"
 gem 'ajax-datatables-rails'
 gem "haml-rails", "~> 2.0"
