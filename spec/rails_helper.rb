@@ -65,9 +65,12 @@ RSpec.configure do |config|
   # This block configures Caypbara's driver to use Selenium
   # It makes it use the chrome browser, but can also be
   # configured to user Firefox, etc.
-  Capybara.register_driver :selenium do |app|
-    Capybara::Selenium::Driver.new(app, browser: :chrome)
+  Capybara.register_driver :chrome do |app|
+    options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
   end
+
+  Capybara.javascript_driver = :chrome
 end
 
 Shoulda::Matchers.configure do |config|
