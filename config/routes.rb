@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :staff do
     get :dashboard, to: 'dashboard#show'
+    resources :books
   end
 
   root to: 'static#index'

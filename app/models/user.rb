@@ -5,6 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
 
+  has_many :loans
+  has_many :books, through: :loans
+
   validates_presence_of :account_type
   validates_presence_of :email
   validates_uniqueness_of :email
