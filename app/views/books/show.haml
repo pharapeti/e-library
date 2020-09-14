@@ -10,9 +10,9 @@
   %p Borrowed at: #{@loan.borrowed_at}
 
 - if current_user.student?
-  = link_to 'Borrow book student', students_borrow_book_path(@book)
+  = link_to 'Borrow book', students_borrow_book_path(@book)
 - elsif current_user.staff?
-  = link_to 'Borrow book staff', staff_borrow_book_path(@book)
+  = link_to 'Borrow book', staff_borrow_book_path(@book)
 
 = link_to 'Edit', edit_book_path(@book)
 \|
