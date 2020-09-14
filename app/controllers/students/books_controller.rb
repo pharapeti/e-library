@@ -1,4 +1,4 @@
-class Staff::BooksController < Staff::StaffController
+class Students::BooksController < Students::StudentsController
   before_action :set_book, only: :borrow
 
   def borrow

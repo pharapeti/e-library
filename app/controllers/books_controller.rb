@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
+  before_action :require_library_manager, only: %i[edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -10,6 +11,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    @loan = Loan.find_by(book: @book, user: current_user)
   end
 
   # GET /books/new
@@ -62,13 +64,14 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def book_params
-      params.fetch(:book, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def book_params
+    params.fetch(:book, {})
+  end
 end

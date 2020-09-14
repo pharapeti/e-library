@@ -7,6 +7,15 @@
 %p Reference Number: #{@book.reference_number}
 %p Edition: #{@book.edition}
 
+%h2 Loan Information
+- if @loan.present?
+  %p Borrowed at: #{@loan.borrowed_at}
+
+- if current_user.student?
+  = link_to 'Borrow book student', students_book_borrow_path(@book)
+- elsif current_user.staff?
+  = link_to 'Borrow book staff', '#'
+
 = link_to 'Edit', edit_book_path(@book)
 \|
 = link_to 'Back', books_path
