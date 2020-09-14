@@ -16,4 +16,34 @@ RSpec.describe Fine, type: :model do
   subject { Fine.new(loan: loan, amount: 50) }
 
   it { is_expected.to validate_presence_of :amount }
+
+  describe '.paid' do
+    let!(:fine) { Fine.create(loan: loan, amount: 50, charged_at: charged_at) }
+    let(:charged_at) { nil }
+
+    subject(:paid) { described_class.paid }
+
+    it { is_expected.to eq [] }
+
+    context 'when the fine has been paid' do
+      let(:charged_at) { 5.minutes.ago }
+
+      it { is_expected.to eq [fine] }
+    end
+  end
+
+  describe '.unpaid' do
+    let!(:fine) { Fine.create(loan: loan, amount: 50, charged_at: charged_at) }
+    let(:charged_at) { nil }
+
+    subject(:paid) { described_class.unpaid }
+
+    it { is_expected.to eq [fine] }
+
+    context 'when the fine has been paid' do
+      let(:charged_at) { 5.minutes.ago }
+
+      it { is_expected.to eq [] }
+    end
+  end
 end
