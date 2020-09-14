@@ -10,7 +10,7 @@ RSpec.describe 'Student borrows book', type: :feature, js: true do
   it 'allows the student to borrow a book' do
     visit root_path
     expect(page).to have_content 'Log in'
-    fill_in 'user_email', with: 'test@university.com'
+    fill_in 'user_email', with: 'student_fixture@university.com'
     fill_in 'user_password', with: '12342%asdfasdAD'
     click_on 'Log in'
 
