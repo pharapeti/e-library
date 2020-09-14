@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
-  before_action :require_library_manager, only: %i[edit update destroy]
+  # before_action :require_library_manager, only: %i[edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -42,6 +42,8 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
+    @book.cover_image.attach(params[:cover_image])
+
     respond_to do |format|
       if @book.update(book_params)
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
@@ -72,6 +74,6 @@ class BooksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def book_params
-    params.fetch(:book, {})
+    params.require(:book).permit(:id, :cover_image)
   end
 end

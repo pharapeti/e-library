@@ -1,5 +1,12 @@
 %h3 #{@book.title}
 %p By: #{@book.author}
+
+%h5 Cover Image
+- if @book.cover_image.attached?
+  = image_tag @book.cover_image
+- else
+  %p No image
+
 %p Book type: #{@book.book_type}
 %p Active: #{@book.active}
 %p Reference Number: #{@book.reference_number}

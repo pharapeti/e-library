@@ -6,5 +6,8 @@
         - @book.errors.full_messages.each do |message|
           %li= message
 
+  = f.label 'Cover Image'
+  = f.file_field :cover_image
+
   .actions
     = f.submit 'Save'
