@@ -37,15 +37,14 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  # Capybara.register_driver :chrome do |app|
-  #   options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
-  #   options.add_argument('--allow-insecure-localhost')  # Ignore TLS/SSL errors on localhost
-  #   options.add_argument('--ignore-certificate-errors') # Ignore certificate related errors
-  #   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
-  # end
+  Capybara.register_driver :chrome do |app|
+    options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
+    options.add_argument('--allow-insecure-localhost')  # Ignore TLS/SSL errors on localhost
+    options.add_argument('--ignore-certificate-errors') # Ignore certificate related errors
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  end
 
-  # Capybara.javascript_driver = :chrome
-  Capybara.javascript_driver = :selenium_chrome_headless
+  Capybara.javascript_driver = :chrome
 end
 
 Shoulda::Matchers.configure do |config|
