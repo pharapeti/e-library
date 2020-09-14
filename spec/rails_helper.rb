@@ -23,7 +23,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   Capybara.register_driver :chrome do |app|
-    options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox disable-gpu])
+    options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
     Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
   end
 
