@@ -1,0 +1,35 @@
+book_3:
+  id: 3
+  title: How to code
+  author: Peter Krauss
+  reference_number: 102A
+  edition: 16th
+  book_type: journal
+  active: true
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2020-09-14 11:25:48.911448000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2020-09-14 11:25:48.911448000 Z
+    zone: *2
+    time: *3
+
+book_4:
+  id: 4
+  title: How to dance
+  author: Peter Krauss
+  reference_number: 102A
+  edition: 16th
+  book_type: journal
+  active: true
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2020-09-14 11:25:56.886748000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2020-09-14 11:25:56.886748000 Z
+    zone: *2
+    time: *3

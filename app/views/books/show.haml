@@ -1,0 +1,26 @@
+%h3 #{@book.title}
+%p By: #{@book.author}
+
+%h5 Cover Image
+- if @book.cover_image.attached?
+  = image_tag @book.cover_image
+- else
+  %p No image
+
+%p Book type: #{@book.book_type}
+%p Active: #{@book.active}
+%p Reference Number: #{@book.reference_number}
+%p Edition: #{@book.edition}
+
+%h2 Loan Information
+- if @loan.present?
+  %p Borrowed at: #{@loan.borrowed_at}
+
+- if current_user.student?
+  = link_to 'Borrow book', students_borrow_book_path(@book)
+- elsif current_user.staff?
+  = link_to 'Borrow book', staff_borrow_book_path(@book)
+
+= link_to 'Edit', edit_book_path(@book)
+\|
+= link_to 'Back', books_path
