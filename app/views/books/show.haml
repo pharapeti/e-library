@@ -21,6 +21,7 @@
 - elsif current_user.staff?
   = link_to 'Borrow book', staff_borrow_book_path(@book)
 
-= link_to 'Edit', edit_book_path(@book)
+- if current_user.library_manager?
+  = link_to 'Edit', edit_book_path(@book)
 \|
 = link_to 'Back', books_path
