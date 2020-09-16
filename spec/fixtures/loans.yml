@@ -1,7 +1,7 @@
 loan_2:
   id: 2
-  user_id: 12
-  book_id: 4
+  user_id: 1
+  book_id: 3
   borrowed_at: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2020-09-14 11:56:26.696399000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
