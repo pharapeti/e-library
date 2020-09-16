@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
-  # before_action :require_library_manager, only: %i[edit update destroy]
+  before_action :require_library_manager, only: %i[edit update destroy]
 
   # GET /books
   # GET /books.json
