@@ -7,14 +7,14 @@ book_3:
   book_type: journal
   active: true
   created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2020-09-14 11:25:48.911448000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
+    utc: 2020-09-14 01:25:48.911448000 Z
+    zone: &1 !ruby/object:ActiveSupport::TimeZone
+      name: Australia/Sydney
+    time: 2020-09-14 11:25:48.911448000 Z
   updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2020-09-14 11:25:48.911448000 Z
-    zone: *2
-    time: *3
+    utc: 2020-09-21 03:07:03.266921000 Z
+    zone: *1
+    time: 2020-09-21 13:07:03.266921000 Z
 
 book_4:
   id: 4
@@ -25,11 +25,11 @@ book_4:
   book_type: journal
   active: true
   created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2020-09-14 11:25:56.886748000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
+    utc: 2020-09-14 01:25:56.886748000 Z
+    zone: &1 !ruby/object:ActiveSupport::TimeZone
+      name: Australia/Sydney
+    time: 2020-09-14 11:25:56.886748000 Z
   updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2020-09-14 11:25:56.886748000 Z
-    zone: *2
-    time: *3
+    utc: 2020-09-21 04:46:09.728598000 Z
+    zone: *1
+    time: 2020-09-21 14:46:09.728598000 Z

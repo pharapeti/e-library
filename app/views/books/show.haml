@@ -12,16 +12,26 @@
 %p Reference Number: #{@book.reference_number}
 %p Edition: #{@book.edition}
 
-%h2 Loan Information
 - if @loan.present?
+  %h2 About your loan
   %p Borrowed at: #{@loan.borrowed_at}
+  %p Returned at: #{@loan.returned_at}
+  %p To be returned at: #{@loan.to_be_returned_at}
+  - if @book.content.attached?
+    = link_to 'Read', url_for(@book.content), target: '_blank', class: 'btn btn-info'
+    = link_to 'Download', rails_blob_path(@book.content, disposition: 'attachment'), target: '_blank',
+      class: 'btn btn-secondary'
+  = link_to 'Return book', book_return_path(@book), class: 'btn btn-primary'
 
-- if current_user.student?
-  = link_to 'Borrow book', students_borrow_book_path(@book)
-- elsif current_user.staff?
-  = link_to 'Borrow book', staff_borrow_book_path(@book)
+- else
+  - if current_user.student?
+    = link_to 'Borrow book', students_borrow_book_path(@book)
+  - elsif current_user.staff?
+    = link_to 'Borrow book', staff_borrow_book_path(@book)
+
+%br
+%br
 
 - if current_user.library_manager?
   = link_to 'Edit', edit_book_path(@book)
-\|
 = link_to 'Back', books_path
