@@ -1,0 +1,15 @@
+
+fine_1:
+  id: 1
+  loan_id: 2
+  charged_at: 
+  amount: 10.0
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2020-09-16 05:41:48.182901000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: *1
+    zone: *2
+    time: *1

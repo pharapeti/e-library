@@ -1,0 +1,53 @@
+user_1:
+  id: 1
+  email: student_fixture@university.com
+  encrypted_password: "$2a$12$/WhT8izKd75dfYqmQlsOGe6GMuddbpC4OFF6of0SsprDfnQQ8yCZS"
+  reset_password_token: 
+  reset_password_sent_at: 
+  remember_created_at: 
+  first_name: Peter
+  last_name: Krauss
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2020-09-01 09:31:21.903113000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2020-09-01 10:10:17.516947000 Z
+    zone: *2
+    time: *3
+  account_type: student
+  confirmation_token: 
+  confirmed_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2020-09-01 10:21:30.364902000 Z
+    zone: *2
+    time: *4
+  confirmation_sent_at: 
+  unconfirmed_email:
+
+user_2:
+  id: 2
+  email: staff@university.com
+  encrypted_password: "$2a$12$/WhT8izKd75dfYqmQlsOGe6GMuddbpC4OFF6of0SsprDfnQQ8yCZS"
+  reset_password_token:
+  reset_password_sent_at:
+  remember_created_at:
+  first_name: Peter
+  last_name: Krauss
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2020-09-01 09:31:21.903113000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2020-09-01 10:10:17.516947000 Z
+    zone: *2
+    time: *3
+  account_type: staff
+  confirmation_token:
+  confirmed_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2020-09-01 10:21:30.364902000 Z
+    zone: *2
+    time: *4
+  confirmation_sent_at:
+  unconfirmed_email:

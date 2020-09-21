@@ -6,9 +6,10 @@
 4. In command prompt, run `gem install bundler`
 4. Navigate to cloned directory and run `bundle install`. This will install the gem dependencies of the project
 5. In the same directory, run `yarn`. If the yarn command is not found, you will need to install it
-6. Run `rake db:drop db:create db:migrate db:seed` to create the database, migrations and create fixtures for testing.
-7. Run `rails server -p 9090` in command prompt to start server on port 9090 (you can alias this to `rs` if you wish)
-8. Open a web browser and navigate to `localhost:9090` to see the homepage
+6. Run `rake db:drop db:create db:migrate db:seed` to create the database and run the migrations.
+7. Run `rake db:fixtures:load` to insert the fixtures into your database.
+8. Run `rails server -p 9090` in command prompt to start server on port 9090 (you can alias this to `rs` if you wish)
+9. Open a web browser and navigate to `localhost:9090` to see the homepage
 
 ## Contributors also known as Group 7:
 - Patrice Harapeti
