@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   %i[student staff library_manager].each do |type|
     define_method "require_#{type}" do
       require_user_type type
@@ -21,4 +24,10 @@ class ApplicationController < ActionController::Base
       format.all { redirect_to path, notice: error }
     end
   end
+
+  protected
+
+    def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
+    end
 end
