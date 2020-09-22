@@ -32,6 +32,22 @@
 %br
 %br
 
+- if current_user.staff?
+  %h2 Loan History
+  %table
+    %tbody
+    %tr 
+      %th User ID
+      %th Borrow date
+      %th Return date
+    %tr
+      %td "id"
+      %td "date"
+      %td "date"
+
+%br
+%br
+
 - if current_user.library_manager?
   = link_to 'Edit', edit_book_path(@book)
 = link_to 'Back', books_path
