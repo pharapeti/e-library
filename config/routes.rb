@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
-  resources :books
+  resources :books do
+    get :return
+  end
 
   namespace :students do
     get :dashboard, to: 'dashboard#show'

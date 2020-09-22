@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
-  before_action :require_library_manager, only: %i[edit update destroy]
+  before_action :set_loan, only: %i[show]
+  # before_action :require_library_manager, only: %i[edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -11,7 +12,6 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    @loan = Loan.find_by(book: @book, user: current_user)
   end
 
   # GET /books/new
@@ -43,6 +43,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1.json
   def update
     @book.cover_image.attach(params[:cover_image])
+    @book.content.attach(params[:content])
 
     respond_to do |format|
       if @book.update(book_params)
@@ -52,6 +53,17 @@ class BooksController < ApplicationController
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def return
+    @book = Book.find(params['book_id'])
+    @loan = Loan.find_by(book: @book, user: current_user)
+
+    if @loan.update(returned_at: Time.now)
+      redirect_to @book, notice: 'Book was successfully returned.'
+    else
+      redirect_to @book, alert: 'Could not return book.'
     end
   end
 
@@ -72,8 +84,12 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
+  def set_loan
+    @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
+  end
+
   # Only allow a list of trusted parameters through.
   def book_params
-    params.require(:book).permit(:id, :cover_image)
+    params.require(:book).permit(:id, :cover_image, :content)
   end
 end

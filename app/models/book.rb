@@ -1,16 +1,18 @@
 class Book < ApplicationRecord
   has_many :loans
   has_one_attached :cover_image
+  has_one_attached :content
 
   validates_presence_of :title, :author, :reference_number, :book_type
   validates :cover_image,
             attached: true,
             dimension: {
-              width: { min: 600, max: 1000 },
-              height: { min: 400, max: 800 },
-              message: 'is not given between dimension. Height between 400 and 800, width between 600 and 1000.'
+              width: { min: 100, max: 300 },
+              height: { min: 100, max: 300 },
+              message: 'is not given between dimension. Height between 100 and 300, width between 100 and 300.'
             }
   validates :cover_image, content_type: /\Aimage\/.*\z/
+  validates :content, attached: true, content_type: { in: 'application/pdf', message: 'is not a PDF' }
 
   enum book_type: %i[book journal research_paper article]
 
