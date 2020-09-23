@@ -12,6 +12,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
   end
 
   # GET /books/new

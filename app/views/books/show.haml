@@ -35,15 +35,16 @@
 - if current_user.staff?
   %h2 Loan History
   %table
+    %thead
+      %tr 
+        %th User ID
+        %th Borrow date
+        %th Return date
     %tbody
-    %tr 
-      %th User ID
-      %th Borrow date
-      %th Return date
-    %tr
-      %td "id"
-      %td "date"
-      %td "date"
+      %tr
+        %td #{@loan.user.id}
+        %td #{@loan.borrowed_at}
+        %td #{@loan.returned_at}
 
 %br
 %br
