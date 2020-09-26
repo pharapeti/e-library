@@ -1,0 +1,15 @@
+cover_image_blob:
+  key: l54iggr32h79r3mdeut5uxx94wov
+  filename: 200x200_sample.png
+  content_type: image/png
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: <%= File.size(Rails.root.join('spec', 'fixtures', 'active_storage', '200x200_sample.png').to_s) %>
+  checksum: <%= Digest::MD5.file(Rails.root.join('spec', 'fixtures', 'active_storage', '200x200_sample.png').to_s).base64digest %>
+
+content_blob:
+  key: kbebjgau1oaub38i5lgkot8930t8
+  filename: sample_pdf.pdf
+  content_type: application/pdf
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: <%= File.size(Rails.root.join('spec', 'fixtures', 'active_storage', 'sample_pdf.pdf').to_s) %>
+  checksum: <%= Digest::MD5.file(Rails.root.join('spec', 'fixtures', 'active_storage', 'sample_pdf.pdf').to_s).base64digest %>

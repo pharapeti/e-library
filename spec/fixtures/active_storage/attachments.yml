@@ -1,0 +1,23 @@
+cover_image:
+  name: cover_image
+  record: book_3
+  record_type: Book
+  blob: cover_image_blob
+
+content:
+  name: content
+  record: book_3
+  record_type: Book
+  blob: content_blob
+
+cover_image2:
+  name: cover_image
+  record: book_4
+  record_type: Book
+  blob: cover_image_blob
+
+content2:
+  name: content
+  record: book_4
+  record_type: Book
+  blob: content_blob

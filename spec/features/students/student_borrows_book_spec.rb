@@ -5,7 +5,11 @@ RSpec.describe 'Student borrows book', type: :feature, js: true do
 
   fixtures :all
 
-  before { user.update(password: '12342%asdfasdAD') }
+  before do
+    Fine.destroy_all
+    Loan.destroy_all
+    user.update(password: '12342%asdfasdAD')
+  end
 
   it 'allows the student to borrow a book' do
     visit root_path
@@ -25,5 +29,12 @@ RSpec.describe 'Student borrows book', type: :feature, js: true do
     expect(page).to have_current_path book_path(books(:book_3))
     click_on 'Borrow book'
     expect(page).to have_text 'Book was borrowed successfully.'
+    expect(page).to have_text 'About your loan'
+    expect(page).to have_text 'Borrowed at:'
+    expect(page).to have_text 'To be returned at:'
+
+    # Now return the book
+    click_on 'Return book'
+    expect(page).to have_text 'Book was successfully returned.'
   end
 end
