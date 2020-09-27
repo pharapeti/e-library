@@ -109,7 +109,7 @@ RSpec.describe 'Staff account registration', type: :feature, js: true do
       within '.input.user_password' do
         expect(page).to have_content <<~TEXT.squish
           Complexity requirement not met. 
-          Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special
+          Length should be 6-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special
         TEXT
       end
     end
