@@ -3,6 +3,8 @@
   = f.error_notification
   .form-inputs
     = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }
+    = f.input :first_name, required: true, autofocus: true
+    = f.input :last_name, required: true, autofocus: true
     = f.input :password, required: true, input_html: { autocomplete: "new-password" }
     = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
     = f.input :account_type, required: true, collection: [%w[Student student], %w[Staff staff]]

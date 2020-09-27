@@ -9,6 +9,8 @@ RSpec.describe 'Staff account registration', type: :feature, js: true do
     # Fill out account registration form
     expect(page).to have_content 'Sign up'
     fill_in 'user_email', with: 'test@university.com'
+    fill_in "user_first_name",	with: "John" 
+    fill_in "user_last_name",	with: "Smith" 
     fill_in 'user_password', with: '@#123fsahfhsWer'
     fill_in 'user_password_confirmation', with: '@#123fsahfhsWer'
     select 'Staff', from: 'user_account_type'
@@ -46,6 +48,8 @@ RSpec.describe 'Staff account registration', type: :feature, js: true do
       # Fill out account registration form
       expect(page).to have_content 'Sign up'
       fill_in 'user_email', with: 'test@university.com'
+      fill_in "user_first_name",	with: "John" 
+      fill_in "user_last_name",	with: "Smith" 
       fill_in 'user_password', with: '@#123fsahfhsWer'
       fill_in 'user_password_confirmation', with: '@#123fsahfhsWer'
       select 'Staff', from: 'user_account_type'
@@ -69,7 +73,7 @@ RSpec.describe 'Staff account registration', type: :feature, js: true do
   end
 
   context 'when an User with the same email address already exists' do
-    before { User.create(email: 'taken@university.com', account_type: :staff, password: '@#123fsahfWer') }
+    before { User.create(email: 'taken@university.com', first_name: 'John', last_name: 'Smith', account_type: :staff, password: '@#123fsahfWer') }
 
     it 'shows an error' do
       visit root_path
@@ -79,6 +83,8 @@ RSpec.describe 'Staff account registration', type: :feature, js: true do
       # Fill out account registration form
       expect(page).to have_content 'Sign up'
       fill_in 'user_email', with: 'taken@university.com'
+      fill_in "user_first_name",	with: "John" 
+      fill_in "user_last_name",	with: "Smith" 
       fill_in 'user_password', with: '@#123fsahfhsWer'
       fill_in 'user_password_confirmation', with: '@#123fsahfhsWer'
       select 'Staff', from: 'user_account_type'
@@ -100,6 +106,8 @@ RSpec.describe 'Staff account registration', type: :feature, js: true do
       # Fill out account registration form
       expect(page).to have_content 'Sign up'
       fill_in 'user_email', with: 'weak@university.com'
+      fill_in "user_first_name",	with: "John" 
+      fill_in "user_last_name",	with: "Smith" 
       fill_in 'user_password', with: '123456'
       fill_in 'user_password_confirmation', with: '123456'
       select 'Staff', from: 'user_account_type'
@@ -124,6 +132,8 @@ RSpec.describe 'Staff account registration', type: :feature, js: true do
       # Fill out account registration form
       expect(page).to have_content 'Sign up'
       fill_in 'user_email', with: 'invalid@example.com'
+      fill_in "user_first_name",	with: "John" 
+      fill_in "user_last_name",	with: "Smith" 
       fill_in 'user_password', with: '@#123fsahfhsWer'
       fill_in 'user_password_confirmation', with: '@#123fsahfhsWer'
       select 'Staff', from: 'user_account_type'
@@ -133,6 +143,25 @@ RSpec.describe 'Staff account registration', type: :feature, js: true do
       within '.input.user_email' do
         expect(page).to have_content 'Email domain requirement not met. Email should be from the *@university.com domain'
       end
+    end
+  end
+
+  context 'when the user tries to create an account without first name and/or last name' do
+    it 'shows an error' do
+      visit root_path
+      expect(page).to have_content 'Log in'
+      click_on 'Sign up'
+
+      # Fill out account registration form
+      expect(page).to have_content 'Sign up'
+      fill_in 'user_email', with: 'invalid@example.com'
+      fill_in 'user_password', with: '@#123fsahfhsWer'
+      fill_in 'user_password_confirmation', with: '@#123fsahfhsWer'
+      select 'Staff', from: 'user_account_type'
+      click_on 'Sign up'
+
+      expect(page).to have_content 'can\'t be blank'
+
     end
   end
 end
