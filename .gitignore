@@ -14,6 +14,7 @@ pickle-email-*.html
 .generators
 .rakeTasks
 .pryrc
+google-chrome-beta_current_amd64.deb
 
 # Ignore all logfiles and tempfiles.
 /log/*
