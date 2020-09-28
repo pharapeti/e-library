@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
   before_action :set_loan, only: %i[show]
-  # before_action :require_library_manager, only: %i[edit update destroy]
+  before_action :require_library_manager, only: %i[new create edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -27,6 +27,10 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
+
+    # Files are not auto-attached
+    @book.cover_image.attach(params[:book][:cover_image])
+    @book.content.attach(params[:book][:content])
 
     respond_to do |format|
       if @book.save
@@ -90,6 +94,9 @@ class BooksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def book_params
-    params.require(:book).permit(:id, :cover_image, :content)
+    params.require(:book).permit(
+      :id, :cover_image, :content, :title, :author, :reference_number,
+      :edition, :book_type, :description, :amount
+    )
   end
 end
