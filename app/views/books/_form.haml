@@ -2,7 +2,6 @@
   .question
     padding: 5px 10px
 
-
 = form_for @book do |f|
   - if @book.errors.any?
     #error_explanation
@@ -29,12 +28,12 @@
 
   .question
     = f.label 'edition', 'Edition:'
-    = f.number_field :edition, :value => 1, min: 1
+    = f.number_field :edition, value: 1 , min: 1
 
   .question
     = f.label 'desc', 'Description:'
     %br
-    = f.text_area :description, :cols => 35, :rows => 3
+    = f.text_area :description, cols: 35, rows: 3
 
   .question
     = f.label 'reference_number', 'Reference Number:'
@@ -46,7 +45,7 @@
 
   .question
     = f.label 'amount', 'Amount:'
-    = f.number_field :amount, :value => 1, min: 1
+    = f.number_field :amount, value: 1, min: 1
 
   .actions
     = f.submit 'Save'
