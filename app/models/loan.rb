@@ -4,11 +4,22 @@ class Loan < ApplicationRecord
   has_one :fine
 
   validates_presence_of :borrowed_at
+  after_create :create_fine
 
   scope :on_loan, -> { where(returned_at: nil) }
   scope :returned, -> { where.not(returned_at: nil) }
 
   def to_be_returned_at
-    borrowed_at + 2.weeks
+    (renewed_at || borrowed_at) + 2.weeks
+  end
+
+  def overdue?
+    Date.today > to_be_returned_at
+  end
+
+  private
+
+  def create_fine
+    Fine.create!(loan: self, amount: 10)
   end
 end

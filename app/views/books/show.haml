@@ -21,7 +21,10 @@
     = link_to 'Read', url_for(@book.content), target: '_blank', class: 'btn btn-info'
     = link_to 'Download', rails_blob_path(@book.content, disposition: 'attachment'), target: '_blank',
       class: 'btn btn-secondary'
-  = link_to 'Return book', book_return_path(@book), class: 'btn btn-primary'
+  - if @loan.overdue?
+    %p This loan is overdue, you must pay $#{@loan.fine.amount_pending} AUD
+  - else
+    = link_to 'Return book', book_return_path(@book), class: 'btn btn-primary'
 
 - else
   - if current_user.student?
