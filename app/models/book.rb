@@ -5,12 +5,12 @@ class Book < ApplicationRecord
 
   validates_presence_of :title, :author, :reference_number, :book_type
   validates :cover_image,
-            attached: true,
-            dimension: {
-              width: { min: 100, max: 300 },
-              height: { min: 100, max: 300 },
-              message: 'is not given between dimension. Height between 100 and 300, width between 100 and 300.'
-            }
+            attached: true
+            # dimension: {
+            #   width: { min: 100, max: 300 },
+            #   height: { min: 100, max: 300 },
+            #   message: 'is not given between dimension. Height between 100 and 300, width between 100 and 300.'
+            # }
   validates :cover_image, content_type: /\Aimage\/.*\z/
   validates :content, attached: true, content_type: { in: 'application/pdf', message: 'is not a PDF' }
 
