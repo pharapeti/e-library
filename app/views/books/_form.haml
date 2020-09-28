@@ -44,8 +44,8 @@
     = f.select :book_type, :collection => Book.book_types.keys.to_a
 
   .question
-    = f.label 'amount', 'Amount:'
-    = f.number_field :amount, value: 1, min: 1
+    = f.label 'max_copies', 'Amount:'
+    = f.number_field :max_copies, value: 1, min: 1
 
   .actions
     = f.submit 'Save'
