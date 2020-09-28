@@ -32,6 +32,7 @@
 %br
 %br
 
+-# - if current_user.library_manager?
 - if current_user.staff?
   %h2 Loan History
   %table
@@ -40,11 +41,28 @@
         %th User ID
         %th Borrow date
         %th Return date
+        %th Late return
+        %th Associated fine
     %tbody
+    - @book.loans.each do |loan| 
       %tr
-        %td #{@loan.user.id}
-        %td #{@loan.borrowed_at}
-        %td #{@loan.returned_at}
+        %td= loan.user.id
+        %td= loan.borrowed_at.strftime("%d/%m/%Y")
+        - if loan.returned_at == nil
+          %td= "Book still borrowed"
+          %td N/A
+          %td N/A
+        - else
+          %td= loan.returned_at.strftime("%d/%m/%Y")
+          - if loan.returned_at < loan.to_be_returned_at
+            %td No
+            %td N/A
+          - else 
+            %td Yes, late return at #{loan.returned_at.strftime("%d/%m/%Y")}
+            - if loan.fine.present?
+              %td Amount: #{loan.fine.amount}
+            - else 
+              %td No fine
 
 %br
 %br
