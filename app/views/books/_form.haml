@@ -1,3 +1,7 @@
+:sass
+  .question
+    padding: 5px 10px
+
 = form_for @book do |f|
   - if @book.errors.any?
     #error_explanation
@@ -6,11 +10,42 @@
         - @book.errors.full_messages.each do |message|
           %li= message
 
-  = f.label 'Cover Image'
-  = f.file_field :cover_image
+  .question
+    = f.label 'image', 'Cover Image:'
+    = f.file_field :cover_image
 
-  = f.label 'Book Content'
-  = f.file_field :content
+  .question
+    = f.label 'content', 'eBook PDF:'
+    = f.file_field :content
+
+  .question
+    = f.label 'title', 'Title:'
+    = f.text_field :title
+
+  .question
+    = f.label 'author', 'Author:'
+    = f.text_field :author
+
+  .question
+    = f.label 'edition', 'Edition:'
+    = f.number_field :edition, value: 1 , min: 1
+
+  .question
+    = f.label 'desc', 'Description:'
+    %br
+    = f.text_area :description, cols: 35, rows: 3
+
+  .question
+    = f.label 'reference_number', 'Reference Number:'
+    = f.text_field :reference_number
+
+  .question
+    = f.label 'type', 'Type:'
+    = f.select :book_type, :collection => Book.book_types.keys.to_a
+
+  .question
+    = f.label 'max_copies', 'Amount:'
+    = f.number_field :max_copies, value: 1, min: 1
 
   .actions
     = f.submit 'Save'
