@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     return if user_signed_in? && current_user.public_send("#{type}?")
 
     session[:return_to] = request.url unless action_name == 'sign_in'
-    deny_access new_user_session_path
+    deny_access root_path
   end
 
   def deny_access(path)
