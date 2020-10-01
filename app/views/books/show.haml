@@ -14,14 +14,17 @@
 
 - if @loan.present?
   %h2 About your loan
-  %p Borrowed at: #{@loan.borrowed_at}
+  %p Borrowed at: #{@loan.borrowed_at.strftime("%d/%m/%Y %T")}
+  - if @loan.renewed_at != nil
+    %p Renewed at: #{@loan.renewed_at.strftime("%d/%m/%Y %T")}
   %p Returned at: #{@loan.returned_at}
-  %p To be returned at: #{@loan.to_be_returned_at}
+  %p To be returned at: #{@loan.to_be_returned_at.strftime("%d/%m/%Y %T")}
   - if @book.content.attached?
     = link_to 'Read', url_for(@book.content), target: '_blank', class: 'btn btn-info'
     = link_to 'Download', rails_blob_path(@book.content, disposition: 'attachment'), target: '_blank',
       class: 'btn btn-secondary'
   = link_to 'Return book', book_return_path(@book), class: 'btn btn-primary'
+  = link_to 'Renew book', book_renew_path(@book), class: 'btn btn-primary'
 
 - else
   - if current_user.student?

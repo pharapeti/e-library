@@ -26,3 +26,9 @@
 
 
 = link_to 'New Book', new_book_path
+- if current_user.library_manager?
+  = link_to 'Back to dashboard', library_managers_dashboard_path
+- elsif current_user.student?
+  = link_to 'Back to dashboard', students_dashboard_path
+- elsif current_user.staff?
+  = link_to 'Back to dashboard', staff_dashboard_path
