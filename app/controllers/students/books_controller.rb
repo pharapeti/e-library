@@ -6,7 +6,6 @@ class Students::BooksController < Students::StudentsController
 
     respond_to do |format|
       if loan.save
-        if @book.
         format.html { redirect_to book_path(@book), notice: 'Book was borrowed successfully.' }
         format.json { render :show, status: :created, location: @book }
       else
