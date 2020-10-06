@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :books do
     get :return
+    get :renew
   end
 
   namespace :students do

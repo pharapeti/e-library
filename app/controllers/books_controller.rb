@@ -62,12 +62,27 @@ class BooksController < ApplicationController
 
   def return
     @book = Book.find(params['book_id'])
-    @loan = Loan.find_by(book: @book, user: current_user)
+    @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
 
     if @loan.update(returned_at: Time.now)
       redirect_to @book, notice: 'Book was successfully returned.'
     else
       redirect_to @book, alert: 'Could not return book.'
+    end
+  end
+
+  def renew
+    @book = Book.find(params['book_id'])
+    @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
+    
+    if @loan.to_be_returned_at < Time.now
+      redirect_to @book, alert: 'Book is overdue. Please check your account for late return fees.' and return
+    else
+      if @loan.update(renewed_at: Time.now)
+        redirect_to @book, notice: 'Book was successfully renewed.'
+      else
+        redirect_to @book, alert: 'Failed to renew book.'
+      end
     end
   end
 
