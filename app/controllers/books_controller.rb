@@ -75,11 +75,14 @@ class BooksController < ApplicationController
     @book = Book.find(params['book_id'])
     @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
     
-    if @loan.update(renewed_at: Time.now)
-      @loan.to_be_returned_at
-      redirect_to @book, notice: 'Book was successfully renewed.'
+    if @loan.to_be_returned_at < Time.now
+      redirect_to @book, alert: 'Book is overdue. Please check your account for late return fees.'
     else
-      redirect_to @book, alert: 'Could not renew book.'
+      if @loan.update(renewed_at: Time.now)
+      redirect_to @book, notice: 'Book was successfully renewed.'
+      else
+      redirect_to @book, alert: 'Failed to renew book.'
+      end
     end
   end
 

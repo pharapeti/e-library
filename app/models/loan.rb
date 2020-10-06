@@ -12,7 +12,7 @@ class Loan < ApplicationRecord
     if renewed_at.nil?
       borrowed_at + 2.weeks
     else 
-      borrowed_at = renewed_at + 2.weeks
+      renewed_at + 2.weeks
     end
   end
 end
