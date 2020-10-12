@@ -4,7 +4,6 @@ class Loan < ApplicationRecord
   has_one :fine
 
   validates_presence_of :borrowed_at
-  after_create :create_fine
 
   scope :on_loan, -> { where(returned_at: nil) }
   scope :returned, -> { where.not(returned_at: nil) }
@@ -17,9 +16,9 @@ class Loan < ApplicationRecord
     Date.today > to_be_returned_at
   end
 
-  private
+  def amount_pending
+    return unless Date.today > to_be_returned_at + 1.week # 1 week grace period
 
-  def create_fine
-    Fine.create!(loan: self, amount: 10)
+    Fine::AMOUNT_PER_DAY * (Date.today - to_be_returned_at.to_date).to_i
   end
 end

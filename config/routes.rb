@@ -8,11 +8,13 @@ Rails.application.routes.draw do
   namespace :students do
     get :dashboard, to: 'dashboard#show'
     get 'books/:id/borrow', to: 'books#borrow', as: :borrow_book
+    get 'books/:id/pay', to: 'fines#pay', as: :pay_fine
   end
 
   namespace :staff do
     get :dashboard, to: 'dashboard#show'
     get 'books/:id/borrow', to: 'books#borrow', as: :borrow_book
+    get 'books/:id/pay', to: 'fines#pay', as: :pay_fine
   end
 
   root to: 'static#index'
