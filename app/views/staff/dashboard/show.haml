@@ -1,4 +1,4 @@
-%h3 Hi there
+%h3 Dashboard
 
 %table
   %thead
@@ -27,3 +27,31 @@
         %td= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
+
+- if current_user.loans.present?
+  %h4 Loan History
+  %table
+    %thead
+      %tr 
+        %th Title
+        %th Reference
+        %th Borrow date
+        %th Return date
+        %th Fine
+    %tbody
+    - current_user.loans.reverse_each do |loan| 
+      %tr
+        %td= loan.book.title
+        %td= loan.book.reference_number
+        %td= loan.borrowed_at.strftime("%d/%m/%Y")
+        - if loan.returned_at == nil
+          %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
+        - else
+          %td= loan.returned_at.strftime("%d/%m/%Y")
+        - if loan.fine.present?
+          - if loan.fine.charged_at == nil 
+            %td Amount: #{loan.fine.amount} - Unpaid
+          - else 
+            %td Amount: #{loan.fine.amount} - Paid
+        - else 
+          %td No fine
