@@ -7,10 +7,12 @@
 - else
   %p No image
 
+%p Description: #{@book.description}
 %p Book type: #{@book.book_type}
 %p Active: #{@book.active}
 %p Reference Number: #{@book.reference_number}
 %p Edition: #{@book.edition}
+%p Copies Available: #{@book.copies_available}
 
 - if @loan.present?
   %h2 About your loan
