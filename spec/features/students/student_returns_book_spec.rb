@@ -50,7 +50,7 @@ RSpec.describe 'Student returns book', type: :feature, js: true do
     end
 
     it 'forces the student to pay the fine before returning' do
-      within 'table' do
+      within 'table#books_list' do
         find('tr', text: 'How to code').click_link('Show')
       end
 
@@ -65,7 +65,7 @@ RSpec.describe 'Student returns book', type: :feature, js: true do
     end
 
     it 'does not allow the student to borrow another book' do
-      within 'table' do
+      within 'table#books_list' do
         find('tr', text: 'How to dance').click_link('Show')
       end
 
