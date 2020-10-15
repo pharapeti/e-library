@@ -1,5 +1,7 @@
-%h3 #{@book.title}
-%p By: #{@book.author}
+%h3 About this book
+
+%b #{@book.title}
+%p By #{@book.author}
 
 %h5 Cover Image
 - if @book.cover_image.attached?
@@ -38,9 +40,9 @@
     %p You cannot borrow this book as you have an overdue loan which needs to be returned.
   - else
     - if current_user.student?
-      = link_to 'Borrow book', students_borrow_book_path(@book)
+      = link_to 'Borrow book', students_borrow_book_path(@book), class: 'btn btn-success'
     - elsif current_user.staff?
-      = link_to 'Borrow book', staff_borrow_book_path(@book)
+      = link_to 'Borrow book', staff_borrow_book_path(@book), class: 'btn btn-success'
 
 %br
 %br
@@ -48,7 +50,7 @@
 - if current_user.library_manager?
   - if @book.loans.present?
     %h2 Loan History
-    %table
+    %table.table.table-hover
       %thead
         %tr 
           %th User ID
@@ -61,24 +63,27 @@
         %tr
           %td= loan.user.id
           %td= loan.borrowed_at.strftime("%d/%m/%Y")
-          - if loan.returned_at == nil
+          - if loan.returned_at.blank?
             %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
             %td N/A
             %td N/A
           - else
             %td= loan.returned_at.strftime("%d/%m/%Y")
+
             - if loan.returned_at <= loan.to_be_returned_at
               %td No
               %td N/A
             - else 
               %td Yes
               - if loan.fine.present?
-                - if loan.fine.charged_at == nil 
+                - if loan.fine.charged_at.blank?
                   %td Amount: #{loan.fine.amount} - Unpaid
                 - else 
                   %td Amount: #{loan.fine.amount} - Paid
               - else 
                 %td No fine
   %br
-  = link_to 'Edit', edit_book_path(@book)
-= link_to 'Back', books_path
+
+= link_to 'Back', books_path, class: 'btn btn-info'
+- if current_user.library_manager?
+  = link_to 'Edit', edit_book_path(@book), class: 'btn btn-primary'

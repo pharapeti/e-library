@@ -3,6 +3,8 @@ class BooksController < ApplicationController
   before_action :set_loan, only: %i[show return]
   before_action :require_library_manager, only: %i[new create edit update destroy]
 
+  layout 'shared'
+
   # GET /books
   # GET /books.json
   def index
