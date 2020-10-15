@@ -24,6 +24,7 @@ RSpec.describe 'Staff borrows book', type: :feature, js: true do
     # Go to book show page and borrow a book
     expect(page).to have_current_path book_path(books(:book_3))
     click_on 'Borrow book'
+
     expect(page).to have_text 'Book was borrowed successfully.'
     expect(page).to have_text 'About your loan'
     expect(page).to have_text 'Borrowed at:'
