@@ -4,14 +4,14 @@ RSpec.feature "Users", type: :feature do
     context 'change user information' do
 
         before do 
-            User.create(email: 'test@university.com', account_type: :staff, password: '@#123fsahfWer')
+            User.create(email: 'test_user_changes@university.com', first_name: 'John', last_name: 'Smith', account_type: :staff, password: '@#123fsahfWer')
             visit user_confirmation_path(confirmation_token: User.last.reload.confirmation_token)
         end
 
         it "should be successful" do
             visit root_path
             expect(page).to have_content 'Log in'
-            fill_in 'user_email', with: 'test@university.com'
+            fill_in 'user_email', with: 'test_user_changes@university.com'
             fill_in 'user_password', with: '@#123fsahfWer'
             click_on 'Log in'
             expect(page).to have_content "Signed in successfully."
@@ -21,7 +21,7 @@ RSpec.feature "Users", type: :feature do
             within('form') do
                 fill_in "First name",	with: "John"
                 fill_in "Last name",	with: "Smith"
-                fill_in "Email",	with: "test@university.com"
+                fill_in "Email",	with: "test_user_changes@university.com"
                 fill_in "Password",	with: "123456Aa!"
                 fill_in "Password confirmation",	with: "123456Aa!"
                 fill_in "Current password", with: "@#123fsahfWer"
@@ -37,7 +37,7 @@ RSpec.feature "Users", type: :feature do
             it "should not be successful" do
                 visit root_path
                 expect(page).to have_content 'Log in'
-                fill_in 'user_email', with: 'test@university.com'
+                fill_in 'user_email', with: 'test_user_changes@university.com'
                 fill_in 'user_password', with: '@#123fsahfWer'
                 click_on 'Log in'
                 expect(page).to have_content "Signed in successfully."

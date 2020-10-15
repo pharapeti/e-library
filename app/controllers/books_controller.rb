@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy return]
   before_action :set_loan, only: %i[show return]
-  # before_action :require_library_manager, only: %i[edit update destroy]
+  before_action :require_library_manager, only: %i[new create edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -27,6 +27,10 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
+
+    # Files are not auto-attached
+    @book.cover_image.attach(params[:book][:cover_image])
+    @book.content.attach(params[:book][:content])
 
     respond_to do |format|
       if @book.save
@@ -64,6 +68,21 @@ class BooksController < ApplicationController
     end
   end
 
+  def renew
+    @book = Book.find(params['book_id'])
+    @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
+    
+    if @loan.to_be_returned_at < Time.now
+      redirect_to @book, alert: 'Book is overdue. Please check your account for late return fees.' and return
+    else
+      if @loan.update(renewed_at: Time.now)
+        redirect_to @book, notice: 'Book was successfully renewed.'
+      else
+        redirect_to @book, alert: 'Failed to renew book.'
+      end
+    end
+  end
+
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
@@ -87,6 +106,9 @@ class BooksController < ApplicationController
   end
 
   def book_params
-    params.require(:book).permit(:id, :cover_image, :content)
+    params.require(:book).permit(
+      :id, :cover_image, :content, :title, :author, :reference_number,
+      :edition, :book_type, :description, :max_copies
+    )
   end
 end

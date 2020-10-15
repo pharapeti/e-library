@@ -14,9 +14,11 @@
 
 - if @loan.present?
   %h2 About your loan
-  %p Borrowed at: #{@loan.borrowed_at}
+  %p Borrowed at: #{@loan.borrowed_at.strftime("%d/%m/%Y %T")}
+  - if @loan.renewed_at != nil
+    %p Renewed at: #{@loan.renewed_at.strftime("%d/%m/%Y %T")}
   %p Returned at: #{@loan.returned_at}
-  %p To be returned at: #{@loan.to_be_returned_at}
+  %p To be returned at: #{@loan.to_be_returned_at.strftime("%d/%m/%Y %T")}
   - if @book.content.attached?
     = link_to 'Read', url_for(@book.content), target: '_blank', class: 'btn btn-info'
 
@@ -28,6 +30,8 @@
       = link_to 'Pay fine', staff_pay_fine_path(@book), class: 'btn btn-danger'
   - else
     = link_to 'Return book', book_return_path(@book), class: 'btn btn-primary'
+    - if @loan.to_be_returned_at >= Time.now
+      = link_to 'Renew book', book_renew_path(@book), class: 'btn btn-primary'
 
 - else
   - if current_user.has_overdue_loans?
@@ -42,5 +46,39 @@
 %br
 
 - if current_user.library_manager?
+  - if @book.loans.present?
+    %h2 Loan History
+    %table
+      %thead
+        %tr 
+          %th User ID
+          %th Borrow date
+          %th Return date
+          %th Late return
+          %th Fine
+      %tbody
+      - @book.loans.each do |loan| 
+        %tr
+          %td= loan.user.id
+          %td= loan.borrowed_at.strftime("%d/%m/%Y")
+          - if loan.returned_at == nil
+            %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
+            %td N/A
+            %td N/A
+          - else
+            %td= loan.returned_at.strftime("%d/%m/%Y")
+            - if loan.returned_at <= loan.to_be_returned_at
+              %td No
+              %td N/A
+            - else 
+              %td Yes
+              - if loan.fine.present?
+                - if loan.fine.charged_at == nil 
+                  %td Amount: #{loan.fine.amount} - Unpaid
+                - else 
+                  %td Amount: #{loan.fine.amount} - Paid
+              - else 
+                %td No fine
+  %br
   = link_to 'Edit', edit_book_path(@book)
 = link_to 'Back', books_path
