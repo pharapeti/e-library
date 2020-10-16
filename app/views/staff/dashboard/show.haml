@@ -1,6 +1,6 @@
 %h3 Dashboard
 
-%table
+%table#books_list
   %thead
     %tr
       %th Title
@@ -9,8 +9,6 @@
       %th Active
       %th Type
       %th Author
-      %th
-      %th
       %th
   
   %tbody
@@ -23,14 +21,12 @@
         %td= book.book_type
         %td= book.author
         %td= link_to 'Show', book
-        %td= link_to 'Edit', edit_book_path(book)
-        %td= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
 - if current_user.loans.present?
   %h4 Loan History
-  %table
+  %table#loan_history
     %thead
       %tr 
         %th Title

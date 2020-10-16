@@ -9,10 +9,16 @@ class Loan < ApplicationRecord
   scope :returned, -> { where.not(returned_at: nil) }
 
   def to_be_returned_at
-    if renewed_at.nil?
-      borrowed_at + 2.weeks
-    else 
-      renewed_at + 2.weeks
-    end
+    (renewed_at || borrowed_at) + 2.weeks
+  end
+
+  def overdue?
+    Date.today > to_be_returned_at
+  end
+
+  def amount_pending
+    return unless Date.today > to_be_returned_at + 1.week # 1 week grace period
+
+    Fine::AMOUNT_PER_DAY * (Date.today - to_be_returned_at.to_date).to_i
   end
 end

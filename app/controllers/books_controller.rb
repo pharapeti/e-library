@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[show edit update destroy]
-  before_action :set_loan, only: %i[show]
+  before_action :set_book, only: %i[show edit update destroy return]
+  before_action :set_loan, only: %i[show return]
   before_action :require_library_manager, only: %i[new create edit update destroy]
 
   # GET /books
@@ -61,9 +61,6 @@ class BooksController < ApplicationController
   end
 
   def return
-    @book = Book.find(params['book_id'])
-    @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
-
     if @loan.update(returned_at: Time.now)
       redirect_to @book, notice: 'Book was successfully returned.'
     else
@@ -98,16 +95,16 @@ class BooksController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_book
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:id] || params['book_id'])
   end
 
   def set_loan
-    @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
+    @loan = Loan.on_loan.find_by(book: @book, user: current_user)
+
+    redirect_to @book, alert: 'Loan not found' && return if @loan.blank?
   end
 
-  # Only allow a list of trusted parameters through.
   def book_params
     params.require(:book).permit(
       :id, :cover_image, :content, :title, :author, :reference_number,

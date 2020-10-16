@@ -1,5 +1,6 @@
 class Students::BooksController < Students::StudentsController
   before_action :set_book, only: :borrow
+  before_action :ensure_no_fines
 
   def borrow
     loan = Loan.new(book: @book, user: current_user, borrowed_at: Time.now)
@@ -20,6 +21,12 @@ class Students::BooksController < Students::StudentsController
   # Use callbacks to share common setup or constraints between actions.
   def set_book
     @book = Book.find(params[:id])
+  end
+
+  def ensure_no_fines
+    if current_user.has_overdue_loans?
+      redirect_to @book, alert: 'You cannot borrow this book as you have an outstanding fine.' and return
+    end
   end
 
   # Only allow a list of trusted parameters through.

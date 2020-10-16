@@ -21,17 +21,28 @@
   %p To be returned at: #{@loan.to_be_returned_at.strftime("%d/%m/%Y %T")}
   - if @book.content.attached?
     = link_to 'Read', url_for(@book.content), target: '_blank', class: 'btn btn-info'
-    = link_to 'Download', rails_blob_path(@book.content, disposition: 'attachment'), target: '_blank',
-      class: 'btn btn-secondary'
-  = link_to 'Return book', book_return_path(@book), class: 'btn btn-primary'
-  - if @loan.to_be_returned_at >= Time.now
-    = link_to 'Renew book', book_renew_path(@book), class: 'btn btn-primary'
+
+  - if @loan.overdue?
+    %p This loan is overdue, you must pay $#{@loan.amount_pending} AUD
+    - if current_user.student?
+      = link_to 'Pay fine', students_pay_fine_path(@book), class: 'btn btn-danger'
+    - elsif current_user.staff?
+      = link_to 'Pay fine', staff_pay_fine_path(@book), class: 'btn btn-danger'
+  - else
+    = link_to 'Return book', book_return_path(@book), class: 'btn btn-primary'
+    - if @loan.to_be_returned_at >= Time.now
+      = link_to 'Renew book', book_renew_path(@book), class: 'btn btn-primary'
 
 - else
-  - if current_user.student?
-    = link_to 'Borrow book', students_borrow_book_path(@book)
-  - elsif current_user.staff?
-    = link_to 'Borrow book', staff_borrow_book_path(@book)
+  - if current_user.has_overdue_loans?
+    %p You cannot borrow this book as you have an overdue loan which needs to be returned.
+  - else
+    - if current_user.student?
+      = link_to 'Borrow book', students_borrow_book_path(@book)
+    - elsif current_user.staff?
+      = link_to 'Borrow book', staff_borrow_book_path(@book)
+
+%br
 %br
 
 - if current_user.library_manager?
