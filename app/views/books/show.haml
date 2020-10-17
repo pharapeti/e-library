@@ -62,23 +62,27 @@
           %td= loan.user.id
           %td= loan.borrowed_at.strftime("%d/%m/%Y")
           - if loan.returned_at == nil
-            %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
-            %td N/A
-            %td N/A
-          - else
-            %td= loan.returned_at.strftime("%d/%m/%Y")
-            - if loan.returned_at <= loan.to_be_returned_at
-              %td No
+            - if loan.overdue?
+              - if loan.has_fine?
+                %td Overdue loan, fine charged
+                %td Yes
+                %td Amount: $#{loan.amount_pending} - Unpaid
+              - else
+                %td Overdue loan 
+                %td Yes
+                %td Book to be returned before #{(loan.to_be_returned_at + 1.week).strftime("%d/%m/%Y")} to avoid fine.
+            - else 
+              %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
               %td N/A
+              %td N/A
+          - else 
+            %td= loan.returned_at.strftime("%d/%m/%Y")
+            - if loan.fine == nil 
+              %td No 
+              %td No fine
             - else 
               %td Yes
-              - if loan.fine.present?
-                - if loan.fine.charged_at == nil 
-                  %td Amount: #{loan.fine.amount} - Unpaid
-                - else 
-                  %td Amount: #{loan.fine.amount} - Paid
-              - else 
-                %td No fine
+              %td Amount: $#{loan.amount_pending} - Paid
   %br
   = link_to 'Edit', edit_book_path(@book)
 = link_to 'Back', books_path
