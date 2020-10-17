@@ -74,8 +74,10 @@ class BooksController < ApplicationController
     
     if @loan.to_be_returned_at < Time.now
       redirect_to @book, alert: 'Book is overdue. Please check your account for late return fees.' and return
+    elsif @loan.renewal_no == @book.max_renewal 
+      redirect_to @book, alert: 'Failed to renew book. You have reached the renewal limit.' and return
     else
-      if @loan.update(renewed_at: Time.now)
+      if @loan.update(renewed_at: Time.now, renewal_no: @loan.renewal_no + 1)
         redirect_to @book, notice: 'Book was successfully renewed.'
       else
         redirect_to @book, alert: 'Failed to renew book.'
@@ -108,7 +110,7 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(
       :id, :cover_image, :content, :title, :author, :reference_number,
-      :edition, :book_type, :description, :max_copies
+      :edition, :book_type, :description, :max_copies, :max_renewal
     )
   end
 end

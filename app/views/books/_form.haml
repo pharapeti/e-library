@@ -47,5 +47,9 @@
     = f.label 'max_copies', 'Amount:'
     = f.number_field :max_copies, value: 1, min: 1
 
+  .question	
+    = f.label 'max_renewal', 'Renewal limit:'	
+    = f.number_field :max_renewal, value: 4, min: 1
+
   .actions
     = f.submit 'Save'
