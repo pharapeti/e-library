@@ -66,8 +66,11 @@ RSpec.describe 'Student renews book', type: :feature, js: true do
 
       # Go to book show page
       expect(page).to have_current_path book_path(books(:book_3))
+      expect(page).to have_text 'About your loan'
+      expect(page).to have_text 'Borrowed at:'
       expect(page).to have_text 'Renewed at:'
-      expect(page).not_to have_button 'Renew book'
+      expect(page).to have_text 'Returned at:'
+      expect(page).to have_text 'To be returned at:'
 
       click_on 'Renew book'
       expect(page).to have_text 'Failed to renew book. You have reached the renewal limit.'
