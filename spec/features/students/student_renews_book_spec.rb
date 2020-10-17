@@ -43,9 +43,6 @@ RSpec.describe 'Student renews book', type: :feature, js: true do
     expect(page).to have_text 'Returned at:'
     expect(page).to have_text 'To be returned at:'
 
-    # Now return the book
-    click_on 'Return book'
-    expect(page).to have_text 'Book was successfully returned.'
   end
 
   context 'when the student has reached the renewal limit' do
