@@ -50,7 +50,7 @@ RSpec.describe 'Student renews book', type: :feature, js: true do
 
   context 'when the staff has reached the renewal limit' do
     let(:book) { books(:book_3) }
-    let!(:loan) { Loan.create(book: book, user: user, borrowed_at: Time.now, renewal_no: 4) }
+    let!(:loan) { Loan.create(book: book, user: user, borrowed_at: Time.now, renewed_at: Time.now, renewal_no: 4) }
 
     before do
       visit root_path
