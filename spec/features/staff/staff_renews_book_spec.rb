@@ -43,11 +43,14 @@ RSpec.describe 'Student renews book', type: :feature, js: true do
     expect(page).to have_text 'Returned at:'
     expect(page).to have_text 'To be returned at:'
 
+    # Now return the book
+    click_on 'Return book'
+    expect(page).to have_text 'Book was successfully returned.'
   end
 
   context 'when the staff has reached the renewal limit' do
     let(:book) { books(:book_3) }
-    let!(:loan) { Loan.create(book: book, user: user, renewal_no: 4) }
+    let!(:loan) { Loan.create(book: book, user: user, borrowed_at: Time.now, renewal_no: 4) }
 
     before do
       visit root_path
