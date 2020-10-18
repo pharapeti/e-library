@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     get :renew
   end
 
+  resources :book_requests do
+    post :fulfill, on: :member
+  end
+
   namespace :students do
     get :dashboard, to: 'dashboard#show'
     get 'books/:id/borrow', to: 'books#borrow', as: :borrow_book

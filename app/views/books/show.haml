@@ -3,7 +3,7 @@
 
 %h5 Cover Image
 - if @book.cover_image.attached?
-  = image_tag @book.cover_image
+  = image_tag @book.cover_image, :style => "height: 200px"
 - else
   %p No image
 
