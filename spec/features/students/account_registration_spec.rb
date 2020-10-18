@@ -32,11 +32,11 @@ RSpec.describe 'Student account registration', type: :feature, js: true do
 
     # Student is now at homepage
     expect(page).to have_current_path students_dashboard_path
-    click_on 'Log out'
-
-    # User signs out
-    expect(page).to have_content 'Signed out successfully.'
-    expect(page).to have_content 'Log in'
+    # click_on 'Log out'
+    #
+    # # User signs out
+    # expect(page).to have_content 'Signed out successfully.'
+    # expect(page).to have_content 'Log in'
   end
 
   context 'when the user tries to log in before confirming their email' do

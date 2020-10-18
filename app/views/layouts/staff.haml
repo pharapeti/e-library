@@ -7,14 +7,21 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = render partial: 'layouts/favicons'
   %body
-    %p.notice= notice
-    %p.alert= alert
-    %b Staff
-    %br
-    = link_to 'Book Requests', book_requests_path
-    = yield
-  
-    = link_to 'Log out', destroy_user_session_path, method: :delete
-    = link_to 'Change info', edit_user_registration_path
-    = link_to 'Listing books', books_path
+    .page#container
+      .header.no-print#header
+        - if user_signed_in?
+          = render partial: 'layouts/navbar'
+        - else
+          = yield :header
+      
+      .d-flex#wrapper
+        - if user_signed_in?
+          = render partial: 'layouts/sidebar'
+        .col-8.col-md-10#main_content
+          - if notice.present?
+            %p.notice= notice
+          - if alert.present?
+            %p.alert= alert
+          = yield
