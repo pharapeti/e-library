@@ -1,5 +1,6 @@
 class Staff::BooksController < Staff::StaffController
   before_action :set_book
+  before_action :ensure_under_borrow_limit
   before_action :ensure_no_fines
 
   def borrow
@@ -22,10 +23,19 @@ class Staff::BooksController < Staff::StaffController
     @book = Book.find(params[:id])
   end
 
+  def ensure_under_borrow_limit
+    return unless current_user.loans.on_loan.count == User::BORROW_LIMIT
+
+    redirect_to(
+      @book,
+      alert: "You cannot borrow this book as you have hit the #{User::BORROW_LIMIT} book borrow limit"
+    ) and return
+  end
+
   def ensure_no_fines
-    if current_user.has_overdue_loans?
-      redirect_to @book, alert: 'You cannot borrow this book as you have an outstanding fine.' and return
-    end
+    return unless current_user.has_overdue_loans?
+
+    redirect_to @book, alert: 'You cannot borrow this book as you have an outstanding fine.' and return
   end
 
   # Only allow a list of trusted parameters through.

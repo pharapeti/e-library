@@ -18,6 +18,8 @@ class User < ApplicationRecord
 
   enum account_type: %i[student staff library_manager]
 
+  BORROW_LIMIT = 10.freeze
+
   def has_overdue_loans?
     loans.on_loan.any? { |loan| loan.overdue? }
   end
