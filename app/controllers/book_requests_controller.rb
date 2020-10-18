@@ -2,6 +2,8 @@ class BookRequestsController < ApplicationController
     before_action :ensure_not_student
     before_action :require_staff, only: %i[new create destroy]
 
+    layout 'shared'
+
     def index
         @book_requests = BookRequest.all
     end
