@@ -46,8 +46,8 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    @book.cover_image.attach(params[:cover_image]) if !(params[:cover_image].nil?)
-    @book.content.attach(params[:content]) if !(params[:content].nil?)
+    @book.cover_image.attach(params[:cover_image]) unless params[:cover_image].nil?
+    @book.content.attach(params[:content]) unless params[:content].nil?
 
     respond_to do |format|
       if @book.update(book_params)
