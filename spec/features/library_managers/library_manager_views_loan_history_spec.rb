@@ -5,9 +5,7 @@ RSpec.describe 'Library Manager views loan history', type: :feature, js: true do
 
   fixtures :all
 
-  before do
-    user.update(password: '12342%asdfasdAD')
-  end
+  before { user.update(password: '12342%asdfasdAD') }
 
   it 'allows the library manager to view the loan history' do
     visit root_path
@@ -19,7 +17,7 @@ RSpec.describe 'Library Manager views loan history', type: :feature, js: true do
     expect(page).to have_content 'How to code'
     expect(page).to have_content 'How to dance'
 
-    within 'table' do
+    within 'table#books_list' do
       find('tr', text: 'How to code').click_link('Show')
     end
 

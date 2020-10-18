@@ -17,7 +17,7 @@ RSpec.describe 'Staff borrows book', type: :feature, js: true do
     expect(page).to have_content 'How to code'
     expect(page).to have_content 'How to dance'
 
-    within 'table' do
+    within 'table#books_list' do
       find('tr', text: 'How to code').click_link('Show')
     end
 

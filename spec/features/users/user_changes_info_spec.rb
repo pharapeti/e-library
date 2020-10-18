@@ -20,7 +20,7 @@ RSpec.feature "Users", type: :feature do
       expect(page).to have_content "Signed in successfully."
       expect(page).to have_current_path staff_dashboard_path
 
-      click_link 'Change info'
+      visit edit_user_registration_path
       within('form') do
         fill_in "First name",	with: "John"
         fill_in "Last name",	with: "Smith"
@@ -46,7 +46,7 @@ RSpec.feature "Users", type: :feature do
         expect(page).to have_content "Signed in successfully."
         expect(page).to have_current_path staff_dashboard_path
 
-        click_link 'Change info'
+        visit edit_user_registration_path
         within('form') do
           fill_in "First name",	with: "John"
           fill_in "Last name",	with: "Smith"
