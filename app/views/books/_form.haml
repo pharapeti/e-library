@@ -52,4 +52,5 @@
     = f.number_field :max_renewal, value: 4, min: 1
 
   .actions
-    = f.submit 'Save'
+    = link_to 'Back', books_path, class: 'btn btn-info'
+    = f.submit 'Save', class: 'btn btn-success'

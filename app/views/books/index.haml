@@ -31,6 +31,5 @@
       %th Active
       %th
 
-= link_to 'New Book', new_book_path
 - if current_user.library_manager?
   = link_to 'New Book', new_book_path, class: 'btn btn-button btn-success'
