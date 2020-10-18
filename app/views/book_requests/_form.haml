@@ -8,7 +8,7 @@
     %br
 
     = f.label 'edition', 'Edition:'
-    = f.text_field :edition
+    = f.number_field :edition, min: 1
     %br
 
     = f.submit 'Send'
