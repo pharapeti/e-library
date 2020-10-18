@@ -17,13 +17,14 @@ RSpec.describe 'Staff borrows book', type: :feature, js: true do
     expect(page).to have_content 'How to code'
     expect(page).to have_content 'How to dance'
 
-    within 'table' do
+    within 'table#books_list' do
       find('tr', text: 'How to code').click_link('Show')
     end
 
     # Go to book show page and borrow a book
     expect(page).to have_current_path book_path(books(:book_3))
     click_on 'Borrow book'
+
     expect(page).to have_text 'Book was borrowed successfully.'
     expect(page).to have_text 'About your loan'
     expect(page).to have_text 'Borrowed at:'

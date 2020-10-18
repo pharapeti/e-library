@@ -4,7 +4,10 @@ RSpec.feature "Users", type: :feature do
   context 'change user information' do
 
     before do
-      User.create(email: 'test_user_changes@university.com', first_name: 'John', last_name: 'Smith', account_type: :staff, password: '@#123fsahfWer')
+      User.create(
+        email: 'test_user_changes@university.com', first_name: 'John',
+        last_name: 'Smith', account_type: :staff, password: '@#123fsahfWer'
+      )
       visit user_confirmation_path(confirmation_token: User.last.reload.confirmation_token)
     end
 
@@ -17,7 +20,7 @@ RSpec.feature "Users", type: :feature do
       expect(page).to have_content "Signed in successfully."
       expect(page).to have_current_path staff_dashboard_path
 
-      click_link 'Change info'
+      visit edit_user_registration_path
       within('form') do
         fill_in "First name",	with: "John"
         fill_in "Last name",	with: "Smith"
@@ -43,7 +46,7 @@ RSpec.feature "Users", type: :feature do
         expect(page).to have_content "Signed in successfully."
         expect(page).to have_current_path staff_dashboard_path
 
-        click_link 'Change info'
+        visit edit_user_registration_path
         within('form') do
           fill_in "First name",	with: "John"
           fill_in "Last name",	with: "Smith"

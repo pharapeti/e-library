@@ -16,3 +16,73 @@
 
 @import "bootstrap/scss/bootstrap";
 @import "rails_bootstrap_forms";
+
+body {
+  overflow-x: hidden;
+}
+
+a:hover {
+  background: transparent !important;
+}
+
+#main_content {
+  padding: 20px;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+  border-right: 1px solid gainsboro;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+.notice {
+  background-color: lightgreen;
+}
+
+.alert {
+  background-color: orangered;
+}
+
+.btn-success:hover {
+  color: black !important;
+}
+
+input {
+  margin: 10px;
+}
