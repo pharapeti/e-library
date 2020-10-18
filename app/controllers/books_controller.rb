@@ -8,7 +8,10 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    respond_to do |format|
+      format.html
+      format.json { render json: BookDatatable.new(params, view_context: view_context) }
+    end
   end
 
   # GET /books/1
