@@ -71,10 +71,12 @@ class BooksController < ApplicationController
   def renew
     @book = Book.find(params['book_id'])
     @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
-    
+
     if @loan.to_be_returned_at < Time.now
       redirect_to @book, alert: 'Book is overdue. Please check your account for late return fees.' and return
-    elsif @loan.renewal_no == @book.max_renewal 
+    elsif @book.max_renewal.nil?
+      redirect_to @book, alert: 'This book cannot be renewed.' and return
+    elsif @loan.renewal_no == @book.max_renewal
       redirect_to @book, alert: 'Failed to renew book. You have reached the renewal limit.' and return
     else
       if @loan.update(renewed_at: Time.now, renewal_no: @loan.renewal_no + 1)

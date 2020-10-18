@@ -30,7 +30,7 @@
       = link_to 'Pay fine', staff_pay_fine_path(@book), class: 'btn btn-danger'
   - else
     = link_to 'Return book', book_return_path(@book), class: 'btn btn-primary'
-    - if @loan.to_be_returned_at >= Time.now
+    - if @loan.to_be_returned_at >= Time.now && @book.max_renewal.present?
       = link_to 'Renew book', book_renew_path(@book), class: 'btn btn-primary'
 
 - else
@@ -61,7 +61,7 @@
         %tr
           %td= loan.user.id
           %td= loan.borrowed_at.strftime("%d/%m/%Y")
-          - if loan.returned_at == nil
+          - if loan.returned_at.nil?
             - if loan.overdue?
               - if loan.has_fine?
                 %td Overdue loan, fine charged
@@ -77,7 +77,7 @@
               %td N/A
           - else 
             %td= loan.returned_at.strftime("%d/%m/%Y")
-            - if loan.fine == nil 
+            - if loan.fine.nil?
               %td No 
               %td No fine
             - else 
