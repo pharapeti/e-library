@@ -1,6 +1,6 @@
 %h3 Dashboard
 
-%table
+%table#books_list
   %thead
     %tr
       %th Title
@@ -23,3 +23,31 @@
         %td= link_to 'Show', book
 
 %br
+
+- if current_user.loans.present?
+  %h4 Loan History
+  %table#loan_history
+    %thead
+      %tr 
+        %th Title
+        %th Reference
+        %th Borrow date
+        %th Return date
+        %th Fine
+    %tbody
+    - current_user.loans.reverse_each do |loan| 
+      %tr
+        %td= loan.book.title
+        %td= loan.book.reference_number
+        %td= loan.borrowed_at.strftime("%d/%m/%Y")
+        - if loan.returned_at == nil
+          %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
+        - else
+          %td= loan.returned_at.strftime("%d/%m/%Y")
+        - if loan.fine.present?
+          - if loan.fine.charged_at == nil 
+            %td Amount: #{loan.fine.amount} - Unpaid
+          - else 
+            %td Amount: #{loan.fine.amount} - Paid
+        - else 
+          %td No fine

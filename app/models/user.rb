@@ -18,6 +18,10 @@ class User < ApplicationRecord
 
   enum account_type: %i[student staff library_manager]
 
+  def has_overdue_loans?
+    loans.on_loan.any? { |loan| loan.overdue? }
+  end
+
   private
 
   def password_complexity
