@@ -65,17 +65,6 @@
         %tr
           %td= loan.user.id
           %td= loan.borrowed_at.strftime("%d/%m/%Y")
-<<<<<<< HEAD
-          - if loan.returned_at.blank?
-            %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
-            %td N/A
-            %td N/A
-          - else
-            %td= loan.returned_at.strftime("%d/%m/%Y")
-
-            - if loan.returned_at <= loan.to_be_returned_at
-              %td No
-=======
           - if loan.returned_at.nil?
             - if loan.overdue?
               - if loan.has_fine?
@@ -88,7 +77,6 @@
                 %td Book to be returned before #{(loan.to_be_returned_at + 1.week).strftime("%d/%m/%Y")} to avoid fine.
             - else 
               %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
->>>>>>> master
               %td N/A
               %td N/A
           - else 
@@ -98,17 +86,7 @@
               %td No fine
             - else 
               %td Yes
-<<<<<<< HEAD
-              - if loan.fine.present?
-                - if loan.fine.charged_at.blank?
-                  %td Amount: #{loan.fine.amount} - Unpaid
-                - else 
-                  %td Amount: #{loan.fine.amount} - Paid
-              - else 
-                %td No fine
-=======
               %td Amount: $#{loan.amount_pending} - Paid
->>>>>>> master
   %br
 
 = link_to 'Back', books_path, class: 'btn btn-info'
