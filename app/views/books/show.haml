@@ -3,13 +3,15 @@
 %b #{@book.title}
 %p By #{@book.author}
 
-%h5 Cover Image
 - if @book.cover_image.attached?
   = image_tag @book.cover_image
-- else
-  %p No image
 
-%p Description: #{@book.description}
+- if @book.description.present?
+  %p Description: #{@book.description}
+
+%br
+%br
+%h3 Details
 %p Book type: #{@book.book_type}
 %p Active: #{@book.active}
 %p Reference Number: #{@book.reference_number}
@@ -47,7 +49,6 @@
       = link_to 'Borrow book', staff_borrow_book_path(@book), class: 'btn btn-success'
 
 %br
-%br
 
 - if current_user.library_manager?
   - if @book.loans.present?
@@ -55,7 +56,7 @@
     %table.table.table-hover
       %thead
         %tr 
-          %th User ID
+          %th Borrower
           %th Borrow date
           %th Return date
           %th Late return
@@ -63,7 +64,7 @@
       %tbody
       - @book.loans.each do |loan| 
         %tr
-          %td= loan.user.id
+          %td= loan.user.first_name
           %td= loan.borrowed_at.strftime("%d/%m/%Y")
           - if loan.returned_at.nil?
             - if loan.overdue?

@@ -9,6 +9,8 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = render partial: 'layouts/favicons'
   %body
-    %p.notice= notice
-    %p.alert= alert
+    - if notice.present?
+      %p.notice= notice
+    - if alert.present?
+      %p.alert= alert
     = yield
