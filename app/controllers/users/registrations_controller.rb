@@ -5,6 +5,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   layout 'shared'
 
+  def new
+    super
+  end
+
   # POST /resource
   def create
     super

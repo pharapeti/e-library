@@ -1,7 +1,7 @@
 class BookDatatable < AjaxDatatablesRails::ActiveRecord
   extend Forwardable
 
-  def_delegators :@view, :check_box_tag, :link_to, :mail_to, :edit_user_path
+  def_delegators :@view, :check_box_tag, :link_to, :mail_to, :image_tag
 
   def initialize(params, opts = {})
     @view = opts[:view_context]
@@ -16,7 +16,8 @@ class BookDatatable < AjaxDatatablesRails::ActiveRecord
       edition: { source: 'Book.edition' },
       reference_number: { source: 'Book.reference_number' },
       copies_available: { source: 'Book.reference_number' }, # stubbed, don't touch
-      active: { source: 'Book.active' }, # stubbed, don't touch
+      active: { source: 'Book.active' },
+      cover_image: { source: 'Book.reference_number' } # stubbed, don't touch
     }
   end
 
@@ -31,7 +32,8 @@ class BookDatatable < AjaxDatatablesRails::ActiveRecord
         reference_number: record.reference_number,
         copies_available: record.copies_available,
         active: record.active,
-        show: link_to('Show', "/books/#{record.id}")
+        show: link_to('Show', "/books/#{record.id}"),
+        cover_image: image_tag(record.cover_image, height: '80px')
       }
     end
   end

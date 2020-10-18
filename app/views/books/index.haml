@@ -7,6 +7,7 @@
         url: "/books"
       pagingType: 'full_numbers'
       columns: [
+        { data: 'cover_image' }
         { data: 'title' }
         { data: 'author' }
         { data: 'book_type' }
@@ -17,11 +18,21 @@
         { data: 'show' }
       ]
 
+:sass
+  #books_list td
+    text-align: center;
+    vertical-align: middle;
+
+  #books_list tr
+    text-align: center;
+    vertical-align: middle;
+
 %h3 Listing books
 
 %table.table.table-hover#books_list
   %thead
     %tr
+      %th
       %th Title
       %th Author
       %th Type

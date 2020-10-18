@@ -1,22 +1,29 @@
 :sass
+  #content-wrap
+    margin-top: 50px
+    margin-left: auto
+    margin-right: auto
+    width: 100%
+
   #login_content
     display: flex
-    flex-direction: column
     justify-content: center
-    align-content: center
-    align-items: center
-    width: 100%
-    margin-top: 50px
 
-#login_content
-  = image_tag 'logos/book-512x512.png', width: '200px'
-  
-  %h2 Log in
-  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-    .form-inputs
-      = f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email" }
-      = f.input :password, required: false, input_html: { autocomplete: "current-password" }
-      = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-    .form-actions
-      = f.button :submit, 'Log in', class: 'btn btn-info'
-  = render "devise/shared/links"
+  #login_actions
+    display: flex
+    flex-direction: column
+
+#content-wrap
+  #login_content
+    = image_tag 'logos/book-512x512.png', width: '350px', height: '350px', style: 'margin-right: 50px'
+
+    #login_actions
+      %h2 E-Library Log in
+      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        .form-inputs
+          = f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email" }
+          = f.input :password, required: false, input_html: { autocomplete: "current-password" }
+          = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+        .form-actions
+          = f.button :submit, 'Log in', class: 'btn btn-info'
+      = render "devise/shared/links"

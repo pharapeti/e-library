@@ -1,10 +1,30 @@
-%h2 Resend confirmation instructions
-= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-  = f.error_notification
-  = f.full_error :confirmation_token
-  .form-inputs
-    = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" },
-      value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
-  .form-actions
-    = f.button :submit, "Resend confirmation instructions"
-= render "devise/shared/links"
+:sass
+  #content-wrap
+    margin-top: 50px
+    margin-left: auto
+    margin-right: auto
+    width: 100%
+
+  #confirm_content
+    display: flex
+    justify-content: center
+
+  #confirm_options
+    display: flex
+    flex-direction: column
+
+#content-wrap
+  #confirm_content
+    = image_tag 'logos/book-512x512.png', width: '350px', height: '350px', style: 'margin-right: 50px'
+
+    #confirm_options
+      %h2 Resend confirmation instructions
+      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+        = f.error_notification
+        = f.full_error :confirmation_token
+        .form-inputs
+          = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" },
+            value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+        .form-actions
+          = f.button :submit, "Resend confirmation instructions", class: 'btn btn-info'
+      = render "devise/shared/links"

@@ -1,14 +1,34 @@
-%h2 Sign up
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }
-    = f.input :first_name, required: true, autofocus: true
-    = f.input :last_name, required: true, autofocus: true
-    = f.input :password, required: true, input_html: { autocomplete: "new-password" }
-    = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
-    = f.input :account_type, required: true, collection: [%w[Student student], %w[Staff staff]]
-  .form-actions
-    = f.button :submit, "Sign up", class: 'btn btn-success'
+:sass
+  #content-wrap
+    margin-top: 50px
+    margin-left: auto
+    margin-right: auto
+    width: 100%
 
-= render "devise/shared/links"
+  #signup_content
+    display: flex
+    justify-content: center
+
+  #signup_options
+    display: flex
+    flex-direction: column
+
+#content-wrap
+  #signup_content
+    = image_tag 'logos/book-512x512.png', width: '350px', height: '350px', style: 'margin-right: 50px'
+
+    #signup_options
+      %h2 E-Library Sign up
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = f.error_notification
+        .form-inputs
+          = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }
+          = f.input :first_name, required: true, autofocus: true
+          = f.input :last_name, required: true, autofocus: true
+          = f.input :password, required: true, input_html: { autocomplete: "new-password" }
+          = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
+          = f.input :account_type, required: true, collection: [%w[Student student], %w[Staff staff]]
+        .form-actions
+          = f.button :submit, "Sign up", class: 'btn btn-info'
+
+      = render "devise/shared/links"
