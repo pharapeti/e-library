@@ -5,7 +5,9 @@ book_3:
   reference_number: 102A
   edition: 16th
   book_type: journal
+  max_copies: 4
   active: true
+  max_renewal: 4
   created_at: !ruby/object:ActiveSupport::TimeWithZone
     utc: 2020-09-14 01:25:48.911448000 Z
     zone: &1 !ruby/object:ActiveSupport::TimeZone
@@ -23,6 +25,7 @@ book_4:
   reference_number: 102A
   edition: 16th
   book_type: journal
+  max_copies: 4
   active: true
   created_at: !ruby/object:ActiveSupport::TimeWithZone
     utc: 2020-09-14 01:25:56.886748000 Z

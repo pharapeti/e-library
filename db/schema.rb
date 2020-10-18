@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_28_053352) do
+ActiveRecord::Schema.define(version: 2020_10_17_053710) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2020_09_28_053352) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
     t.integer "max_copies"
+    t.integer "max_renewal"
   end
 
   create_table "fines", force: :cascade do |t|
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_09_28_053352) do
     t.datetime "renewed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "renewal_no", default: 0
     t.index ["book_id"], name: "index_loans_on_book_id"
     t.index ["user_id"], name: "index_loans_on_user_id"
   end

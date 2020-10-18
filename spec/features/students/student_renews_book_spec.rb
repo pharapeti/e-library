@@ -47,4 +47,33 @@ RSpec.describe 'Student renews book', type: :feature, js: true do
     click_on 'Return book'
     expect(page).to have_text 'Book was successfully returned.'
   end
+
+  context 'when the student has reached the renewal limit' do
+    let(:book) { books(:book_3) }
+    let!(:loan) { Loan.create(book: book, user: user, borrowed_at: Time.now, renewed_at: Time.now, renewal_no: 4) }
+
+    before do
+      visit root_path
+      fill_in 'user_email', with: 'student_fixture@university.com'
+      fill_in 'user_password', with: '12342%asdfasdAD'
+      click_on 'Log in'
+    end
+
+    it 'prevents the student to renew one more time' do
+      within 'table#books_list' do
+        find('tr', text: 'How to code').click_link('Show')
+      end
+
+      # Go to book show page
+      expect(page).to have_current_path book_path(books(:book_3))
+      expect(page).to have_text 'About your loan'
+      expect(page).to have_text 'Borrowed at:'
+      expect(page).to have_text 'Renewed at:'
+      expect(page).to have_text 'Returned at:'
+      expect(page).to have_text 'To be returned at:'
+
+      click_on 'Renew book'
+      expect(page).to have_text 'Failed to renew book. You have reached the renewal limit.'
+    end
+  end
 end

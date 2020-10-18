@@ -4,10 +4,7 @@ RSpec.feature "Users", type: :feature do
   context 'change user information' do
 
     before do
-      User.create(
-        email: 'test_user_changes@university.com', first_name: 'John', last_name: 'Smith',
-        account_type: :staff, password: '@#123fsahfWer'
-      )
+      User.create(email: 'test_user_changes@university.com', first_name: 'John', last_name: 'Smith', account_type: :staff, password: '@#123fsahfWer')
       visit user_confirmation_path(confirmation_token: User.last.reload.confirmation_token)
     end
 
@@ -20,7 +17,7 @@ RSpec.feature "Users", type: :feature do
       expect(page).to have_content "Signed in successfully."
       expect(page).to have_current_path staff_dashboard_path
 
-      visit edit_user_registration_path
+      click_link 'Change info'
       within('form') do
         fill_in "First name",	with: "John"
         fill_in "Last name",	with: "Smith"
@@ -46,7 +43,7 @@ RSpec.feature "Users", type: :feature do
         expect(page).to have_content "Signed in successfully."
         expect(page).to have_current_path staff_dashboard_path
 
-        visit edit_user_registration_path
+        click_link 'Change info'
         within('form') do
           fill_in "First name",	with: "John"
           fill_in "Last name",	with: "Smith"
@@ -59,16 +56,13 @@ RSpec.feature "Users", type: :feature do
         end
 
         expect(page).to have_current_path user_registration_path
-        expect(page).to have_content <<~TEXT
-          Email domain requirement not met. Email should be from the *@university.com domain
-        TEXT
-        expect(page).to have_content <<~TEXT.squish.gsub("\n", ' ')
-          Complexity requirement not met. Length should be 6-70 characters and
-          include: 1 uppercase, 1 lowercase, 1 digit and 1 special character
-        TEXT
+        expect(page).to have_content "Email domain requirement not met. Email should be from the *@university.com domain"
+        expect(page).to have_content "Complexity requirement not met. Length should be 6-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character"
         expect(page).to have_content "doesn't match Password"
         expect(page).to have_content "We need your current password to confirm your changes. is invalid"
       end
     end
+    # !aA654321
+
   end
 end

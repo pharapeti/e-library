@@ -16,6 +16,10 @@ class Loan < ApplicationRecord
     Date.today > to_be_returned_at
   end
 
+  def has_fine?
+    Date.today > to_be_returned_at + 1.week
+  end
+
   def amount_pending
     return unless Date.today > to_be_returned_at + 1.week # 1 week grace period
 
