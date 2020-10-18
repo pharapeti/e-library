@@ -95,3 +95,9 @@
 = link_to 'Back', books_path, class: 'btn btn-info'
 - if current_user.library_manager?
   = link_to 'Edit', edit_book_path(@book), class: 'btn btn-primary'
+  
+  - unless @book.active?
+    = link_to 'Activate', activate_book_path(@book), class: 'btn btn-success', method: :post
+  
+  - if @book.active? && @book.loans.on_loan.count.zero?
+    = link_to 'Deactivate', deactivate_book_path(@book), class: 'btn btn-danger', method: :post

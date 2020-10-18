@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :books do
     get :return
     get :renew
+    post :activate, on: :member
+    post :deactivate, on: :member
   end
 
   resources :book_requests do

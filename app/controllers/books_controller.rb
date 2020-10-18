@@ -1,14 +1,17 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[show edit update destroy return]
+  before_action :set_book, only: %i[show edit update destroy return activate deactivate]
   before_action :set_loan, only: %i[show return]
-  before_action :require_library_manager, only: %i[new create edit update destroy]
+  before_action :require_library_manager, only: %i[new create edit update destroy activate deactivate]
 
   layout 'shared'
 
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    respond_to do |format|
+      format.html
+      format.json { render json: BookDatatable.new(params, view_context: view_context) }
+    end
   end
 
   # GET /books/1
@@ -96,6 +99,30 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def activate
+    respond_to do |format|
+      if @book.update(active: true)
+        format.html { redirect_to @book, notice: 'Book was successfully activated.' }
+        format.json { render :show, status: :ok, location: @book }
+      else
+        format.html { redirect_to @book, notice: 'Could not activate book.' }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def deactivate
+    respond_to do |format|
+      if @book.update(active: false)
+        format.html { redirect_to @book, notice: 'Book was successfully deactivated.' }
+        format.json { render :show, status: :ok, location: @book }
+      else
+        format.html { redirect_to @book, notice: 'Could not deactivate book.' }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+      end
     end
   end
 
