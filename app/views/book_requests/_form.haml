@@ -1,0 +1,14 @@
+= form_for @book_request do |f| 
+    = f.label 'title', 'Title:'
+    = f.text_field :title
+    %br
+
+    = f.label 'author', 'Author:'
+    = f.text_field :author
+    %br
+
+    = f.label 'edition', 'Edition:'
+    = f.number_field :edition, min: 1
+    %br
+
+    = f.submit 'Send'

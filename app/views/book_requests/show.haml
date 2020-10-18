@@ -1,0 +1,14 @@
+%h3 Title: #{@book_request.title}
+%h3 By: #{@book_request.author}
+- if @book_request.user.id != current_user.id
+    %h3 Requested By: #{@book_request.user.first_name} #{@book_request.user.last_name}
+- else
+    %h3 Requested By You
+- if @book_request.edition?
+    %h3 Edition: #{@book_request.edition}
+%br
+%p= link_to 'All Requests', book_requests_path, class: 'btn btn-info'
+- if @book_request.user == current_user && @book_request.fulfillment == false
+    %p= link_to 'Delete', book_request_path(@book_request), method: :delete, class: 'btn btn-info'
+- if current_user.library_manager? && @book_request.fulfillment == false, class: 'btn btn-info'
+    %p= link_to 'Fulfill', fulfill_book_request_path(@book_request)

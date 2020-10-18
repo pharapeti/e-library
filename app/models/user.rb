@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_many :loans
   has_many :books, through: :loans
+  has_many :book_requests
 
   validates_presence_of :account_type
   validates_presence_of :email

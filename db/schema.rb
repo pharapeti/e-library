@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 2020_10_17_053710) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "book_requests", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.string "author"
+    t.integer "edition"
+    t.boolean "fulfillment", default: false
+    t.index ["user_id"], name: "index_book_requests_on_user_id"
+  end
+
   create_table "books", force: :cascade do |t|
     t.string "title", null: false
     t.string "author", null: false
@@ -90,6 +99,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_053710) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "book_requests", "users"
   add_foreign_key "fines", "loans"
   add_foreign_key "loans", "books"
   add_foreign_key "loans", "users"

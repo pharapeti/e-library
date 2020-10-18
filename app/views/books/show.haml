@@ -4,7 +4,9 @@
 %p By #{@book.author}
 
 - if @book.cover_image.attached?
-  = image_tag @book.cover_image
+  = image_tag @book.cover_image, height: '200px'
+- else
+  %p No image
 
 - if @book.description.present?
   %p Description: #{@book.description}

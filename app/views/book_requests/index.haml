@@ -1,0 +1,29 @@
+%h1 All requests
+
+%table.table.table-hover#book_requests
+  %thead
+    %tr
+      %th Title
+      %th Author
+      %th Edition
+      %th Fulfillemt
+      %th
+
+  %tbody
+    - @book_requests.each do |book_request|
+      %tr
+        %td= book_request.title
+        %td= book_request.author
+        %td= book_request.edition
+        %td= book_request.fulfillment == true ? "Yes" : "No"
+        %td= link_to 'Show', book_request
+
+%br
+
+- if current_user.library_manager?
+  = link_to 'Back to dashboard', library_managers_dashboard_path, class: 'btn btn-info'
+- elsif current_user.student?
+  = link_to 'Back to dashboard', students_dashboard_path, class: 'btn btn-info'
+- elsif current_user.staff?
+  = link_to 'New Book Request', new_book_request_path, class: 'btn btn-info'
+  = link_to 'Back to dashboard', staff_dashboard_path, class: 'btn btn-info'
