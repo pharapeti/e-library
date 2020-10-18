@@ -1,0 +1,32 @@
+:coffee
+  $ ->
+    $('#company-name, #company-logo').on 'click', ->
+      window.location.href = '/'
+
+:sass
+  .in-session-alert
+    margin-left: 30vw
+
+  #company-logo
+    margin: 5px
+    cursor: pointer
+
+  #company-name
+    margin-left: 10px
+    cursor: pointer
+
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light.border-bottom
+  = image_tag 'logos/book-32x32', id: 'company-logo'
+
+  #company-name
+    %b{ style: 'font-size: 30px;' } E-Library
+
+  #navbarSupportedContent.collapse.navbar-collapse
+    %ul.navbar-nav.ml-auto.mt-2.mt-lg-0
+      .dropdown
+        %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true",
+         "data-toggle" => "dropdown", href: "#", role: "button"}
+          = current_user.first_name
+        .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
+          = link_to 'Profile', edit_user_registration_path, class: 'dropdown-item'
+          = link_to 'Logout', destroy_user_session_path, class: 'dropdown-item', method: :delete

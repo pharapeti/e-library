@@ -1,0 +1,31 @@
+:coffee
+  $ ->
+    found = false
+
+    if window.location.pathname.indexOf('dashboard') >= 0
+      $('#home-item').addClass('on-page')
+      found = true
+
+    if window.location.pathname.indexOf('books') >= 0
+      $('#books-item').addClass('on-page')
+      found = true
+
+    if window.location.pathname.indexOf('transcripts') >= 0
+      $('#transcript-item').addClass('on-page')
+      found = true
+
+    if !found then $('#home-item').addClass('on-page')
+
+:sass
+  .on-page
+    font-weight: bold
+
+
+#sidebar-wrapper.bg-light
+  .list-group.list-group-flush
+    = link_to 'Home', root_path, class: 'list-group-item list-group-item-action bg-light', id: 'home-item'
+    = link_to 'Books', books_path, class: 'list-group-item list-group-item-action bg-light',
+      id: 'books-item'
+    - unless current_user.student?
+      = link_to 'Book requests', '#', class: 'list-group-item list-group-item-action bg-light',
+        id: 'book-requests-item'
