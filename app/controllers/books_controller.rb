@@ -46,8 +46,8 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    @book.cover_image.attach(params[:cover_image])
-    @book.content.attach(params[:content])
+    @book.cover_image.attach(params[:cover_image]) unless params[:cover_image].nil?
+    @book.content.attach(params[:content]) unless params[:content].nil?
 
     respond_to do |format|
       if @book.update(book_params)
@@ -71,11 +71,15 @@ class BooksController < ApplicationController
   def renew
     @book = Book.find(params['book_id'])
     @loan = Loan.find_by(book: @book, user: current_user, returned_at: nil)
-    
+
     if @loan.to_be_returned_at < Time.now
       redirect_to @book, alert: 'Book is overdue. Please check your account for late return fees.' and return
+    elsif @book.max_renewal.nil?
+      redirect_to @book, alert: 'This book cannot be renewed.' and return
+    elsif @loan.renewal_no == @book.max_renewal
+      redirect_to @book, alert: 'Failed to renew book. You have reached the renewal limit.' and return
     else
-      if @loan.update(renewed_at: Time.now)
+      if @loan.update(renewed_at: Time.now, renewal_no: @loan.renewal_no + 1)
         redirect_to @book, notice: 'Book was successfully renewed.'
       else
         redirect_to @book, alert: 'Failed to renew book.'
@@ -108,7 +112,7 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(
       :id, :cover_image, :content, :title, :author, :reference_number,
-      :edition, :book_type, :description, :max_copies
+      :edition, :book_type, :description, :max_copies, :max_renewal
     )
   end
 end

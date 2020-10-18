@@ -40,14 +40,20 @@
         %td= loan.book.title
         %td= loan.book.reference_number
         %td= loan.borrowed_at.strftime("%d/%m/%Y")
-        - if loan.returned_at == nil
-          %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
+        - if loan.returned_at.nil?
+          - if loan.overdue?
+            - if loan.has_fine?
+              %td Overdue loan, fine charged 
+              %td Amount: $#{loan.amount_pending} - Unpaid
+            - else
+              %td Overdue loan 
+              %td Return book before #{(loan.to_be_returned_at + 1.week).strftime("%d/%m/%Y")} to avoid fine.
+          - else
+            %td Book still borrowed, due #{loan.to_be_returned_at.strftime("%d/%m/%Y")}
+            %td N/A
         - else
           %td= loan.returned_at.strftime("%d/%m/%Y")
-        - if loan.fine.present?
-          - if loan.fine.charged_at == nil 
-            %td Amount: #{loan.fine.amount} - Unpaid
+          - if loan.fine.nil?
+            %td No fine
           - else 
-            %td Amount: #{loan.fine.amount} - Paid
-        - else 
-          %td No fine
+            %td Amount: $#{loan.amount_pending} - Paid

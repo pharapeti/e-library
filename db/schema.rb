@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_053710) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
     t.integer "max_copies"
+    t.integer "max_renewal"
   end
 
   create_table "fines", force: :cascade do |t|
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_053710) do
     t.datetime "renewed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "renewal_no", default: 0
     t.index ["book_id"], name: "index_loans_on_book_id"
     t.index ["user_id"], name: "index_loans_on_user_id"
   end
