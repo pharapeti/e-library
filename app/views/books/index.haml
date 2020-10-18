@@ -1,29 +1,35 @@
+:coffeescript
+  $ ->
+    $('#books_list').dataTable
+      processing: true
+      serverSide: true
+      ajax:
+        url: "/books"
+      pagingType: 'full_numbers'
+      columns: [
+        { data: 'title' }
+        { data: 'author' }
+        { data: 'book_type' }
+        { data: 'reference_number' }
+        { data: 'edition' }
+        { data: 'copies_available' }
+        { data: 'active' }
+        { data: 'show' }
+      ]
+
 %h1 Listing books
 
-%table
+%table.table.table-hover#books_list
   %thead
     %tr
       %th Title
+      %th Author
+      %th Type
       %th Reference number
       %th Edition
+      %th Copies available
       %th Active
-      %th Type
-      %th Author
       %th
-
-  %tbody
-    - @books.each do |book|
-      %tr
-        %td= book.title
-        %td= book.reference_number
-        %td= book.edition
-        %td= book.active
-        %td= book.book_type
-        %td= book.author
-        %td= link_to 'Show', book
-
-%br
-
 
 = link_to 'New Book', new_book_path
 - if current_user.library_manager?

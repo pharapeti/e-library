@@ -14,6 +14,6 @@ class Book < ApplicationRecord
   scope :inactive, -> { where(active: false) }
 
   def copies_available
-    return self.max_copies - Loan.on_loan.where(book: self).count
+    self.max_copies - Loan.on_loan.where(book: self).count
   end
 end

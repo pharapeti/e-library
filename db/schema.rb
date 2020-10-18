@@ -69,6 +69,10 @@ ActiveRecord::Schema.define(version: 2020_10_17_053710) do
     t.index ["user_id"], name: "index_loans_on_user_id"
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
