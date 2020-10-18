@@ -4,7 +4,10 @@ RSpec.feature "Users", type: :feature do
   context 'change user information' do
 
     before do
-      User.create(email: 'test_user_changes@university.com', first_name: 'John', last_name: 'Smith', account_type: :staff, password: '@#123fsahfWer')
+      User.create(
+        email: 'test_user_changes@university.com', first_name: 'John',
+        last_name: 'Smith', account_type: :staff, password: '@#123fsahfWer'
+      )
       visit user_confirmation_path(confirmation_token: User.last.reload.confirmation_token)
     end
 
