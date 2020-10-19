@@ -1,4 +1,4 @@
-%h3 Dashboard
+%h3 Your Dashboard
 
 %table.table.table-hover#books_list
   %thead
@@ -18,7 +18,7 @@
         %td= book.reference_number
         %td= book.edition
         %td= book.active
-        %td= book.book_type
+        %td= book.book_type.gsub('_',' ').capitalize
         %td= book.author
         %td= link_to 'Show', book
 

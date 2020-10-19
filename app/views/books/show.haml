@@ -8,14 +8,13 @@
 - else
   %p No image
 
-- if @book.description.present?
-  %p Description: #{@book.description}
-
 %br
 %br
 %h3 Details
-%p Book type: #{@book.book_type}
-%p Active: #{@book.active}
+- if @book.description.present?
+  %p Description: #{@book.description}
+%p Book type: #{@book.book_type.gsub('_',' ').capitalize}
+%p Active: #{@book.active == true ? 'Yes' : 'No' }
 %p Reference Number: #{@book.reference_number}
 %p Edition: #{@book.edition}
 %p Copies Available: #{@book.copies_available}

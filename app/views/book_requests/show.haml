@@ -1,14 +1,22 @@
-%h3 Title: #{@book_request.title}
-%h3 By: #{@book_request.author}
-- if @book_request.user.id != current_user.id
-    %h3 Requested By: #{@book_request.user.first_name} #{@book_request.user.last_name}
-- else
-    %h3 Requested By You
-- if @book_request.edition?
-    %h3 Edition: #{@book_request.edition}
+%h1 About this book request
+%i The following book has been requested to be added to the library catalogue.
 %br
+%br
+
+%p Title: #{@book_request.title}
+%p By: #{@book_request.author}
+- if @book_request.edition?
+    %p Edition: #{@book_request.edition}
+
+- if @book_request.user.id != current_user.id
+    %p Requested By: #{@book_request.user.first_name} #{@book_request.user.last_name}
+- else
+    %p Requested By You
+%p Fullfilled: #{@book_request.fulfillment == true ? 'Yes': 'No' }
+%br
+
 %p= link_to 'Back', book_requests_path, class: 'btn btn-info'
 - if @book_request.user == current_user && @book_request.fulfillment == false
-    %p= link_to 'Delete', book_request_path(@book_request), method: :delete, class: 'btn btn-info'
+    %p= link_to 'Delete book request', book_request_path(@book_request), method: :delete, class: 'btn btn-danger'
 - if current_user.library_manager? && @book_request.fulfillment == false
     %p= link_to 'Fulfill', fulfill_book_request_path(@book_request), class: 'btn btn-success', method: :post

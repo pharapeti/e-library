@@ -1,4 +1,4 @@
-%h1 All requests
+%h3 Book Requests
 
 %table.table.table-hover#book_requests
   %thead
@@ -6,7 +6,7 @@
       %th Title
       %th Author
       %th Edition
-      %th Fulfillemt
+      %th Fulfillment
       %th
 
   %tbody
@@ -25,5 +25,5 @@
 - elsif current_user.student?
   = link_to 'Back to dashboard', students_dashboard_path, class: 'btn btn-info'
 - elsif current_user.staff?
-  = link_to 'New Book Request', new_book_request_path, class: 'btn btn-info'
   = link_to 'Back to dashboard', staff_dashboard_path, class: 'btn btn-info'
+  = link_to 'New Book Request', new_book_request_path, class: 'btn btn-success'
