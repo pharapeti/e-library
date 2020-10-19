@@ -1,4 +1,30 @@
-%p
-  Welcome #{@email}!
-%p You can confirm your account email through the link below:
-%p= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+:sass
+  .column
+    float: left
+    width: 33.33%
+    padding: 20px
+
+  .row
+    display: flex
+
+  .row:after
+    content: ""
+    display: table
+    clear: both
+
+  .background-gray
+    background-color: gray
+
+  a
+    display: flex
+    justify-content: center
+
+.row
+  .column.background-gray
+  .column
+    %h1 E-Library
+    %p
+      Welcome #{@email}!
+    %p You can confirm your account, click through the link below:
+    %p= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+  .column.background-gray
