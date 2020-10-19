@@ -21,7 +21,7 @@
     = image_tag 'logos/book-512x512.png', width: '350px', height: '350px', style: 'margin-right: 50px'
 
     #signup_options
-      %h2 E-Library Sign up
+      %h2 E-Library Sign Up
       = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
         = f.error_notification
         .form-inputs
@@ -32,6 +32,6 @@
           = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
           = f.input :account_type, required: true, collection: [%w[Student student], %w[Staff staff]]
         .form-actions
-          = f.button :submit, "Sign up", class: 'btn btn-info'
+          = f.button :submit, "Sign Up", class: 'btn btn-info'
 
       = render "devise/shared/links"
