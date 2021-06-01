@@ -38,6 +38,7 @@ gem 'ajax-datatables-rails'
 gem "haml-rails", "~> 2.0"
 gem 'devise'
 gem 'html2haml'
+gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
